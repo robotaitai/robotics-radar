@@ -1,40 +1,8 @@
-# Robotics Radar - Cleaned Feeds Configuration
-# Only includes feeds that are working and accessible
+# Robotics Radar - Frontier AI Research Configuration
+# High-value sources for cutting-edge AI research and robotics breakthroughs
 
 feeds:
-  # News & Industry Publications (WORKING)
-  - url: https://robohub.org/feed/
-    name: "Robohub"
-    tags: [robotics, news, research]
-    enabled: true
-
-  - url: https://roboticsandautomationnews.com/feed/
-    name: "Robotics & Automation News"
-    tags: [robotics, news, industry]
-    enabled: true
-
-  - url: https://www.theguardian.com/technology/robots/rss
-    name: "The Guardian - Robots"
-    tags: [robotics, news, general]
-    enabled: true
-
-  # Academic & Research (WORKING)
-  - url: https://www.science.org/action/showFeed?journalCode=scirobotics&type=etoc&feedType=rss
-    name: "Science Robotics"
-    tags: [robotics, research, science, academic]
-    enabled: true
-
-  - url: https://www.frontiersin.org/journals/robotics-and-ai/rss
-    name: "Frontiers in Robotics & AI"
-    tags: [robotics, research, academic, AI]
-    enabled: true
-
-  - url: https://www.sciencedaily.com/rss/computers_math/robotics.xml
-    name: "ScienceDaily Robotics"
-    tags: [robotics, science, news]
-    enabled: true
-
-  # 🧠 FRONTIER AI RESEARCH (NEW)
+  # 🧠 FRONTIER AI RESEARCH (WORKING)
   # arXiv Research Feeds - Catch research before it hits mainstream
   - url: https://arxiv.org/rss/cs.AI
     name: "arXiv Artificial Intelligence"
@@ -77,13 +45,7 @@ feeds:
     tags: [AI, machine_learning, robotics, open_source, research]
     enabled: true
 
-  # Open Source & Tech (WORKING)
-  - url: https://github.com/ros/rosdistro/commits/master.atom
-    name: "ROS Distro Commits"
-    tags: [open_source, ros, github]
-    enabled: true
-
-  # 🧠 FRONTIER GITHUB REPOS (NEW)
+  # 🧠 FRONTIER GITHUB REPOS
   - url: https://github.com/Kiloreux/awesome-robotics/commits/main.atom
     name: "Awesome Robotics Commits"
     tags: [robotics, open_source, research, github, frontier]
@@ -94,23 +56,7 @@ feeds:
     tags: [machine_learning, AI, open_source, github, frontier]
     enabled: true
 
-  # AI Research (WORKING)
-  - url: https://www.microsoft.com/en-us/research/feed/
-    name: "Microsoft Research"
-    tags: [AI, robotics, microsoft, research, embodied_ai]
-    enabled: true
-
-  - url: https://deepmind.com/blog/feed/basic/
-    name: "DeepMind Blog"
-    tags: [AI, robotics, deepmind, research, embodied_ai]
-    enabled: true
-
-  - url: https://openai.com/blog/rss.xml
-    name: "OpenAI Blog"
-    tags: [AI, robotics, openai, research, embodied_ai]
-    enabled: true
-
-  # 🧠 COMMUNITY & REAL-TIME SIGNALS (NEW)
+  # 🧠 COMMUNITY & REAL-TIME SIGNALS
   # Hacker News RSS for real-time community signals
   - url: https://hnrss.org/newest?q=robotics
     name: "Hacker News Robotics"
@@ -127,30 +73,31 @@ feeds:
     tags: [machine_learning, AI, robotics, hackernews, community, frontier]
     enabled: true
 
-  # Twitter/X via Nitter RSS (No API required)
-  - url: https://nitter.net/karpathy/rss
-    name: "Andrej Karpathy Tweets"
-    tags: [AI, robotics, twitter, research, frontier]
+  # Major AI Research Labs (WORKING)
+  - url: https://www.microsoft.com/en-us/research/feed/
+    name: "Microsoft Research"
+    tags: [AI, robotics, microsoft, research, embodied_ai]
     enabled: true
 
-  - url: https://nitter.net/DeepMind/rss
-    name: "DeepMind Tweets"
-    tags: [AI, robotics, twitter, research, frontier]
+  - url: https://deepmind.com/blog/feed/basic/
+    name: "DeepMind Blog"
+    tags: [AI, robotics, deepmind, research, embodied_ai]
     enabled: true
 
-  - url: https://nitter.net/OpenAI/rss
-    name: "OpenAI Tweets"
-    tags: [AI, robotics, twitter, research, frontier]
+  - url: https://openai.com/blog/rss.xml
+    name: "OpenAI Blog"
+    tags: [AI, robotics, openai, research, embodied_ai]
     enabled: true
 
-  - url: https://nitter.net/ylecun/rss
-    name: "Yann LeCun Tweets"
-    tags: [AI, robotics, twitter, research, frontier]
+  # Academic & Research (WORKING)
+  - url: https://www.science.org/action/showFeed?journalCode=scirobotics&type=etoc&feedType=rss
+    name: "Science Robotics"
+    tags: [robotics, research, science, academic]
     enabled: true
 
-  - url: https://nitter.net/AndrewYNg/rss
-    name: "Andrew Ng Tweets"
-    tags: [AI, robotics, twitter, research, frontier]
+  - url: https://www.frontiersin.org/journals/robotics-and-ai/rss
+    name: "Frontiers in Robotics & AI"
+    tags: [robotics, research, academic, AI]
     enabled: true
 
   # Community (WORKING)
@@ -184,16 +131,15 @@ feeds:
     tags: [AI, robotics, community, reddit, frontier]
     enabled: true
 
-  # Medium Publications (WORKING)
-  - url: https://medium.com/feed/tag/robotics
-    name: "Medium Robotics"
-    tags: [medium, AI, robotics]
+  # News & Industry (WORKING)
+  - url: https://robohub.org/feed/
+    name: "Robohub"
+    tags: [robotics, news, research]
     enabled: true
 
-  # Government & Space (WORKING)
-  - url: https://www.nasa.gov/feed/
-    name: "NASA News"
-    tags: [robotics, space, government, research]
+  - url: https://roboticsandautomationnews.com/feed/
+    name: "Robotics & Automation News"
+    tags: [robotics, news, industry]
     enabled: true
 
 # Filtering configuration
@@ -225,7 +171,7 @@ filters:
     - bio-inspired robotics
     - rehabilitation robot
     
-    # 🧠 FRONTIER AI MODELS & CONCEPTS (NEW)
+    # 🧠 FRONTIER AI MODELS & CONCEPTS
     - VLA
     - V-JEPA
     - RT-2
@@ -362,7 +308,7 @@ scoring_weights:
 
   # Bonus for trusted sources
   source_bonus:
-    arxiv: 25.0  # Increased for research importance
+    arxiv: 30.0  # Highest bonus for research importance
     ieee: 15.0
     mit: 15.0
     science: 15.0
@@ -376,11 +322,10 @@ scoring_weights:
     deepmind: 20.0
     openai: 18.0
     microsoft: 15.0
-    # 🧠 NEW FRONTIER SOURCES
-    frontier: 30.0  # Highest bonus for frontier research
+    # 🧠 FRONTIER SOURCES
+    frontier: 35.0  # Highest bonus for frontier research
     hackernews: 8.0
-    twitter: 6.0
-    newsletter: 12.0
+    newsletter: 15.0
     github: 5.0
 
   # Bonus for specific tags
@@ -397,10 +342,10 @@ scoring_weights:
     embodied_ai: 12.0
     community: 2.0
     open_source: 3.0
-    # 🧠 NEW FRONTIER TAGS
-    frontier: 15.0  # Highest bonus for frontier content
-    arxiv: 8.0
-    machine_learning: 6.0
-    computer_vision: 6.0
-    transformer: 8.0
-    foundation_model: 10.0 
+    # 🧠 FRONTIER TAGS
+    frontier: 20.0  # Highest bonus for frontier content
+    arxiv: 10.0
+    machine_learning: 8.0
+    computer_vision: 8.0
+    transformer: 10.0
+    foundation_model: 15.0 

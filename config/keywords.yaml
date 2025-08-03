@@ -171,6 +171,74 @@ keywords:
   - robot self adaptation
   - robot self improvement
   - robot self evolution
+  
+  # 🧠 FRONTIER AI MODELS & CONCEPTS
+  - VLA
+  - V-JEPA
+  - RT-2
+  - SayCan
+  - PaLM-E
+  - GPT-5
+  - multimodal transformer
+  - foundation model
+  - diffusion policy
+  - hierarchical RL
+  - world models
+  - neural radiance fields
+  - dreamerV3
+  - embodied AI
+  - vision-language-action
+  - vision-language model
+  - transformer-based control
+  - reinforcement learning robotics
+  - edge robotics
+  - drone swarms
+  - synthetic data robotics
+  - robotics foundation models
+  - sim-to-real
+  - Policy Composition
+  - Scene Graphs for Manipulation
+  - robot foundation model
+  - robot language model
+  - robot vision model
+  - robot learning model
+  - robot reasoning
+  - robot understanding
+  - robot cognition
+  - robot decision making
+  - robot problem solving
+  - robot adaptation
+  - robot generalization
+  - robot transfer learning
+  - robot meta learning
+  - robot few shot learning
+  - robot zero shot learning
+  - robot imitation learning
+  - robot reinforcement learning
+  - robot supervised learning
+  - robot unsupervised learning
+  - robot self supervised learning
+  - robot multi task learning
+  - robot continual learning
+  - robot lifelong learning
+  - robot online learning
+  - robot active learning
+  - robot curriculum learning
+  - robot hierarchical learning
+  - robot compositional learning
+  - robot modular learning
+  - robot distributed learning
+  - robot federated learning
+  - robot collaborative learning
+  - robot swarm learning
+  - robot collective learning
+  - robot emergent behavior
+  - robot self organization
+  - robot self repair
+  - robot self optimization
+  - robot self adaptation
+  - robot self improvement
+  - robot self evolution
 languages:
   - en
 exclude_keywords:
