@@ -1,5 +1,6 @@
 domain: robotics
 keywords:
+  # Core robotics terms
   - robotics research
   - open-source robotics
   - robot announcement
@@ -35,6 +36,38 @@ keywords:
   - Policy Composition
   - Hierarchical RL
   - Scene Graphs for Manipulation
+  
+  # Additional specific robotics terms
+  - robot
+  - robotics
+  - autonomous robot
+  - robot control
+  - robot navigation
+  - robot manipulation
+  - robot perception
+  - robot planning
+  - robot learning
+  - robot vision
+  - robot sensing
+  - robot actuation
+  - robot locomotion
+  - robot interaction
+  - robot collaboration
+  - robot safety
+  - robot ethics
+  - robot autonomy
+  - robot intelligence
+  - robot adaptation
+  - robot optimization
+  - robot simulation
+  - robot hardware
+  - robot software
+  - robot platform
+  - robot system
+  - robot application
+  - robot deployment
+  - robot testing
+  - robot validation
 languages:
   - en
 exclude_keywords:
@@ -48,6 +81,38 @@ exclude_keywords:
   - sales pitch
   - advertisement
   - sponsored
+  # General science terms that don't indicate robotics
+  - climate change
+  - global warming
+  - biodiversity
+  - ecosystem
+  - evolution
+  - genetics
+  - molecular biology
+  - chemistry
+  - physics
+  - astronomy
+  - astrophysics
+  - geology
+  - oceanography
+  - meteorology
+  - psychology
+  - sociology
+  - economics
+  - political science
+  - anthropology
+  - archaeology
+  - paleontology
+  - microbiology
+  - immunology
+  - neurology
+  - cardiology
+  - oncology
+  - epidemiology
+  - public health
+  - environmental science
+  - conservation
+  - sustainability
 
 # Scoring configuration
 scoring_weights:

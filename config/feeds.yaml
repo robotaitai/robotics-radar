@@ -80,10 +80,7 @@ feeds:
     tags: [robotics, research, science, pnas]
     enabled: true
 
-  - url: https://www.science.org/action/showFeed?journalCode=sciadv&type=etoc&feedType=rss
-    name: "Science Advances"
-    tags: [science, research, breakthrough]
-    enabled: true
+  # Removed Science Advances - too general, not robotics-specific
 
   # University Research Labs
   - url: https://www.csail.mit.edu/news/feed

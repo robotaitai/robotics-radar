@@ -538,14 +538,30 @@ class KeywordExtractor:
                 if exclude_keyword.lower() in text_lower:
                     return False
             
-            # Check for inclusion keywords
+            # Check for inclusion keywords - must have at least one robotics-specific keyword
+            robotics_keywords_found = 0
             for keyword in keywords:
                 if keyword.lower() in text_lower:
-                    return True
+                    robotics_keywords_found += 1
             
-            # Additional check with extracted topics
+            # Must have at least one robotics keyword to be considered robotics-related
+            if robotics_keywords_found == 0:
+                return False
+            
+            # Additional check: ensure topics are actually robotics-related
             topics = self.extract_topics(text)
-            return len(topics) > 0
+            if topics:
+                # Check if any of the extracted topics are robotics-related
+                robotics_topics = [
+                    'robotics_research', 'autonomous_systems', 'computer_vision',
+                    'industrial_robotics', 'service_robots', 'medical_robotics',
+                    'mobile_robotics', 'human_robot_interaction', 'soft_robotics'
+                ]
+                has_robotics_topic = any(topic in topics for topic in robotics_topics)
+                if not has_robotics_topic:
+                    return False
+            
+            return True
             
         except Exception as e:
             logger.error(f"Error checking robotics relevance: {e}")
