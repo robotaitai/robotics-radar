@@ -68,6 +68,109 @@ keywords:
   - robot deployment
   - robot testing
   - robot validation
+  
+  # Synonyms and alternative terms
+  - driverless
+  - cobot
+  - collaborative robot
+  - mobile manipulator
+  - assistive robot
+  - factory automation
+  - machine autonomy
+  - automated system
+  - intelligent machine
+  - smart robot
+  - robotic system
+  - automation technology
+  - robotic automation
+  - autonomous system
+  - robotic platform
+  - robotic solution
+  - robotic application
+  - robotic technology
+  - robotic innovation
+  - robotic development
+  - robotic research
+  - robotic engineering
+  - robotic design
+  - robotic implementation
+  - robotic deployment
+  - robotic integration
+  - robotic optimization
+  - robotic control
+  - robotic navigation
+  - robotic perception
+  - robotic planning
+  - robotic learning
+  - robotic vision
+  - robotic sensing
+  - robotic actuation
+  - robotic locomotion
+  - robotic interaction
+  - robotic collaboration
+  - robotic safety
+  - robotic ethics
+  - robotic autonomy
+  - robotic intelligence
+  - robotic adaptation
+  - robotic simulation
+  - robotic hardware
+  - robotic software
+  - robotic testing
+  - robotic validation
+  
+  # AI for Robotics trends and models
+  - foundation model
+  - VLA
+  - Vision-Language-Action
+  - RT-2
+  - V-JEPA
+  - Diffusion Policy
+  - PaLM-E
+  - SayCan
+  - embodied AI
+  - embodied intelligence
+  - robot foundation model
+  - robot language model
+  - robot vision model
+  - robot learning model
+  - robot reasoning
+  - robot understanding
+  - robot cognition
+  - robot decision making
+  - robot problem solving
+  - robot adaptation
+  - robot generalization
+  - robot transfer learning
+  - robot meta learning
+  - robot few shot learning
+  - robot zero shot learning
+  - robot imitation learning
+  - robot reinforcement learning
+  - robot supervised learning
+  - robot unsupervised learning
+  - robot self supervised learning
+  - robot multi task learning
+  - robot continual learning
+  - robot lifelong learning
+  - robot online learning
+  - robot active learning
+  - robot curriculum learning
+  - robot hierarchical learning
+  - robot compositional learning
+  - robot modular learning
+  - robot distributed learning
+  - robot federated learning
+  - robot collaborative learning
+  - robot swarm learning
+  - robot collective learning
+  - robot emergent behavior
+  - robot self organization
+  - robot self repair
+  - robot self optimization
+  - robot self adaptation
+  - robot self improvement
+  - robot self evolution
 languages:
   - en
 exclude_keywords:

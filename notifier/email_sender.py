@@ -172,20 +172,20 @@ class EmailNotifier:
             <div style="padding: 20px;">
         """
         
-        for i, tweet in enumerate(tweets, 1):
+        for i, article in enumerate(articles, 1):
             # Truncate text if too long
-            text = tweet.text[:300] + "..." if len(tweet.text) > 300 else tweet.text
+            text = article.text[:300] + "..." if len(article.text) > 300 else article.text
             
             html += f"""
                 <div class="tweet">
-                    <div class="author">#{i} @{tweet.author_username}</div>
+                    <div class="author">#{i} {article.author_username}</div>
                     <div style="margin: 10px 0;">{text}</div>
                     <div class="metrics">
-                        ❤️ {tweet.likes:,} | 🔄 {tweet.retweets:,} | 💬 {tweet.replies:,}
+                        ❤️ {article.likes:,} | 🔄 {article.retweets:,} | 💬 {article.replies:,}
                     </div>
-                    <div class="score">Score: {tweet.score:.2f}</div>
+                    <div class="score">Score: {article.score:.2f}</div>
                     <div style="margin-top: 10px;">
-                        <a href="{tweet.url}" class="link">View on X (Twitter)</a>
+                        <a href="{article.url}" class="link">Read Article</a>
                     </div>
                 </div>
             """
@@ -203,26 +203,26 @@ class EmailNotifier:
         
         return html
     
-    def _create_text_content(self, tweets: List[Tweet]) -> str:
+    def _create_text_content(self, articles: List[Article]) -> str:
         """Create plain text content for email.
         
         Args:
-            tweets: List of tweets
+            articles: List of articles
             
         Returns:
             Plain text content string
         """
-        text = f"🤖 Robotics Radar - Top {len(tweets)} Tweets\n"
+        text = f"🤖 Robotics Radar - Top {len(articles)} Articles\n"
         text += "=" * 50 + "\n\n"
         
-        for i, tweet in enumerate(tweets, 1):
+        for i, article in enumerate(articles, 1):
             # Truncate text if too long
-            tweet_text = tweet.text[:200] + "..." if len(tweet.text) > 200 else tweet.text
+            article_text = article.text[:200] + "..." if len(article.text) > 200 else article.text
             
-            text += f"{i}. @{tweet.author_username}\n"
-            text += f"   {tweet_text}\n"
-            text += f"   Score: {tweet.score:.2f} | ❤️ {tweet.likes:,} | 🔄 {tweet.retweets:,} | 💬 {tweet.replies:,}\n"
-            text += f"   View: {tweet.url}\n\n"
+            text += f"{i}. {article.author_username}\n"
+            text += f"   {article_text}\n"
+            text += f"   Score: {article.score:.2f} | ❤️ {article.likes:,} | 🔄 {article.retweets:,} | 💬 {article.replies:,}\n"
+            text += f"   View: {article.url}\n\n"
         
         text += f"\nGenerated on {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
         return text
@@ -290,8 +290,8 @@ class EmailNotifier:
             <div style="padding: 20px;">
                 <div class="stats">
                     <div class="stat">
-                        <div class="stat-number">{stats.get('total_tweets', 0):,}</div>
-                        <div class="stat-label">Total Tweets</div>
+                        <div class="stat-number">{stats.get('total_articles', 0):,}</div>
+                        <div class="stat-label">Total Articles</div>
                     </div>
                     <div class="stat">
                         <div class="stat-number">{stats.get('total_authors', 0):,}</div>
@@ -302,7 +302,7 @@ class EmailNotifier:
                         <div class="stat-label">Avg Score</div>
                     </div>
                     <div class="stat">
-                        <div class="stat-number">{stats.get('recent_tweets', 0):,}</div>
+                        <div class="stat-number">{stats.get('recent_articles', 0):,}</div>
                         <div class="stat-label">Recent (24h)</div>
                     </div>
                 </div>
@@ -363,10 +363,10 @@ class EmailNotifier:
         text = "📊 Robotics Radar - Daily Analytics Report\n"
         text += "=" * 50 + "\n\n"
         
-        text += f"📈 Total Tweets: {stats.get('total_tweets', 0):,}\n"
+        text += f"📈 Total Articles: {stats.get('total_articles', 0):,}\n"
         text += f"👥 Total Authors: {stats.get('total_authors', 0):,}\n"
         text += f"⭐ Average Score: {stats.get('avg_score', 0):.2f}\n"
-        text += f"🕐 Recent Tweets (24h): {stats.get('recent_tweets', 0):,}\n\n"
+        text += f"🕐 Recent Articles (24h): {stats.get('recent_articles', 0):,}\n\n"
         
         # Add top authors
         top_authors = stats.get('top_authors', [])

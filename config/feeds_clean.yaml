@@ -1,0 +1,217 @@
+# Robotics Radar - Cleaned Feeds Configuration
+# Only includes feeds that are working and accessible
+
+feeds:
+  # News & Industry Publications (WORKING)
+  - url: https://robohub.org/feed/
+    name: "Robohub"
+    tags: [robotics, news, research]
+    enabled: true
+
+  - url: https://roboticsandautomationnews.com/feed/
+    name: "Robotics & Automation News"
+    tags: [robotics, news, industry]
+    enabled: true
+
+  - url: https://www.theguardian.com/technology/robots/rss
+    name: "The Guardian - Robots"
+    tags: [robotics, news, general]
+    enabled: true
+
+  # Academic & Research (WORKING)
+  - url: https://www.science.org/action/showFeed?journalCode=scirobotics&type=etoc&feedType=rss
+    name: "Science Robotics"
+    tags: [robotics, research, science, academic]
+    enabled: true
+
+  - url: https://www.frontiersin.org/journals/robotics-and-ai/rss
+    name: "Frontiers in Robotics & AI"
+    tags: [robotics, research, academic, AI]
+    enabled: true
+
+  - url: https://www.sciencedaily.com/rss/computers_math/robotics.xml
+    name: "ScienceDaily Robotics"
+    tags: [robotics, science, news]
+    enabled: true
+
+  # Open Source (WORKING)
+  - url: https://github.com/ros/rosdistro/commits/master.atom
+    name: "ROS Distro Commits"
+    tags: [open-source, ros, github]
+    enabled: true
+
+  # AI Research (WORKING)
+  - url: https://www.microsoft.com/en-us/research/feed/
+    name: "Microsoft Research"
+    tags: [AI, robotics, microsoft, research, embodied_ai]
+    enabled: true
+
+  - url: https://deepmind.com/blog/feed/basic/
+    name: "DeepMind Blog"
+    tags: [AI, robotics, deepmind, research, embodied_ai]
+    enabled: true
+
+  - url: https://openai.com/blog/rss.xml
+    name: "OpenAI Blog"
+    tags: [AI, robotics, openai, research, embodied_ai]
+    enabled: true
+
+  # Community (WORKING)
+  - url: https://old.reddit.com/r/robotics/.rss
+    name: "Reddit r/robotics"
+    tags: [robotics, community, reddit]
+    enabled: true
+
+  - url: https://old.reddit.com/r/ROS/.rss
+    name: "Reddit r/ROS"
+    tags: [robotics, ros, community, reddit]
+    enabled: true
+
+  - url: https://old.reddit.com/r/AutonomousVehicles/.rss
+    name: "Reddit r/AutonomousVehicles"
+    tags: [robotics, autonomous_vehicles, community, reddit]
+    enabled: true
+
+  - url: https://old.reddit.com/r/drones/.rss
+    name: "Reddit r/drones"
+    tags: [robotics, drones, community, reddit]
+    enabled: true
+
+  # Medium Publications (WORKING)
+  - url: https://medium.com/feed/tag/robotics
+    name: "Medium Robotics"
+    tags: [medium, AI, robotics]
+    enabled: true
+
+  # Government & Space (WORKING)
+  - url: https://www.nasa.gov/feed/
+    name: "NASA News"
+    tags: [robotics, space, government, research]
+    enabled: true
+
+# Filtering configuration
+filters:
+  # Keywords to include (content must contain at least one)
+  include_keywords:
+    - robotics
+    - robot
+    - autonomous
+    - automation
+    - AI
+    - artificial intelligence
+    - machine learning
+    - computer vision
+    - ROS
+    - drone
+    - self-driving
+    - cobot
+    - collaborative robot
+    - autonomous vehicle
+    - UAV
+    - surgical robot
+    - industrial robot
+    - service robot
+    - humanoid
+    - swarm robotics
+    - soft robotics
+    - bio-inspired robotics
+    - rehabilitation robot
+
+  # Keywords to exclude (content containing these will be filtered out)
+  exclude_keywords:
+    - job posting
+    - hiring
+    - career
+    - webinar
+    - advertisement
+    - sponsored
+    - sales pitch
+    - apply now
+    - remote work
+    - internship
+    - event registration
+    - conference registration
+    - workshop registration
+    - training course
+    - certification program
+    # General science terms that don't indicate robotics
+    - climate change
+    - global warming
+    - biodiversity
+    - ecosystem
+    - evolution
+    - genetics
+    - molecular biology
+    - chemistry
+    - physics
+    - astronomy
+    - astrophysics
+    - geology
+    - oceanography
+    - meteorology
+    - psychology
+    - sociology
+    - economics
+    - political science
+    - anthropology
+    - archaeology
+    - paleontology
+    - microbiology
+    - immunology
+    - neurology
+    - cardiology
+    - oncology
+    - epidemiology
+    - public health
+    - environmental science
+    - conservation
+    - sustainability
+
+  # Minimum content length (characters)
+  min_content_length: 100
+
+  # Maximum age of posts (days)
+  max_age_days: 7
+
+# Scoring weights for RSS content
+scoring_weights:
+  # Base score for RSS content
+  base_score: 50.0
+
+  # Bonus for content length
+  content_length_bonus: 0.1
+
+  # Bonus for recent content (newer = higher score)
+  recency_bonus: 10.0
+
+  # Bonus for trusted sources
+  source_bonus:
+    arxiv: 20.0
+    ieee: 15.0
+    mit: 15.0
+    science: 15.0
+    robohub: 10.0
+    nature: 18.0
+    cell: 18.0
+    pnas: 16.0
+    nist: 12.0
+    darpa: 12.0
+    nasa: 12.0
+    deepmind: 20.0
+    openai: 18.0
+    microsoft: 15.0
+
+  # Bonus for specific tags
+  tag_bonus:
+    research: 5.0
+    breakthrough: 10.0
+    academic: 5.0
+    technical: 3.0
+    autonomous: 8.0
+    medical: 7.0
+    industrial: 4.0
+    defense: 6.0
+    space: 6.0
+    embodied_ai: 12.0
+    community: 2.0
+    open_source: 3.0 

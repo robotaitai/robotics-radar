@@ -1,0 +1,549 @@
+- accessible: false
+  error: 'HTTP Error: 403 Client Error: Forbidden for url: https://www.roboticsbusinessreview.com/feed/'
+  has_content: false
+  item_count: 0
+  last_updated: null
+  name: Robotics Business Review
+  status: inaccessible
+  url: https://www.roboticsbusinessreview.com/feed/
+- accessible: true
+  error: null
+  has_content: true
+  item_count: 75
+  last_updated: '2025-07-25T07:36:28'
+  name: Robohub
+  recent_items: 5
+  status: healthy
+  url: https://robohub.org/feed/
+- accessible: false
+  error: 'HTTP Error: 404 Client Error: Not Found for url: https://spectrum.ieee.org/robotics/rss.xml'
+  has_content: false
+  item_count: 0
+  last_updated: null
+  name: IEEE Spectrum Robotics
+  status: inaccessible
+  url: https://spectrum.ieee.org/robotics/rss.xml
+- accessible: true
+  error: null
+  has_content: false
+  item_count: 0
+  last_updated: null
+  name: MIT Technology Review Robotics
+  recent_items: 0
+  status: no_content
+  url: https://www.technologyreview.com/topic/robotics/feed/
+- accessible: false
+  error: 'HTTP Error: 403 Client Error: Forbidden for url: https://www.therobotreport.com/feed/'
+  has_content: false
+  item_count: 0
+  last_updated: null
+  name: The Robot Report
+  status: inaccessible
+  url: https://www.therobotreport.com/feed/
+- accessible: true
+  error: null
+  has_content: true
+  item_count: 15
+  last_updated: '2025-08-01T12:21:58'
+  name: Robotics & Automation News
+  recent_items: 15
+  status: healthy
+  url: https://roboticsandautomationnews.com/feed/
+- accessible: true
+  error: null
+  has_content: true
+  item_count: 20
+  last_updated: '2025-07-29T14:00:31'
+  name: The Guardian - Robots
+  recent_items: 2
+  status: healthy
+  url: https://www.theguardian.com/technology/robots/rss
+- accessible: true
+  error: null
+  has_content: false
+  item_count: 0
+  last_updated: null
+  name: arXiv Robotics
+  recent_items: 0
+  status: no_content
+  url: https://arxiv.org/rss/cs.RO
+- accessible: true
+  error: null
+  has_content: true
+  item_count: 45
+  last_updated: '2025-07-31T07:00:00'
+  name: Science Robotics
+  recent_items: 44
+  status: healthy
+  url: https://www.science.org/action/showFeed?journalCode=scirobotics&type=etoc&feedType=rss
+- accessible: true
+  error: null
+  has_content: true
+  item_count: 20
+  last_updated: '2025-08-01T00:00:00'
+  name: Frontiers in Robotics & AI
+  recent_items: 20
+  status: healthy
+  url: https://www.frontiersin.org/journals/robotics-and-ai/rss
+- accessible: false
+  error: 'HTTP Error: 404 Client Error: Not Found for url: https://news.mit.edu/topic/robotics/feed'
+  has_content: false
+  item_count: 0
+  last_updated: null
+  name: MIT News - Robotics
+  status: inaccessible
+  url: http://news.mit.edu/topic/robotics/feed
+- accessible: true
+  error: null
+  has_content: true
+  item_count: 60
+  last_updated: '2025-07-27T07:26:38'
+  name: ScienceDaily Robotics
+  recent_items: 5
+  status: healthy
+  url: https://www.sciencedaily.com/rss/computers_math/robotics.xml
+- accessible: false
+  error: 'HTTP Error: 404 Client Error: Not Found for url: https://www.nature.com/subjects/robotics.rss'
+  has_content: false
+  item_count: 0
+  last_updated: null
+  name: Nature Robotics
+  status: inaccessible
+  url: https://www.nature.com/subjects/robotics.rss
+- accessible: false
+  error: 'HTTP Error: 403 Client Error: Forbidden for url: https://www.cell.com/robotics/rss'
+  has_content: false
+  item_count: 0
+  last_updated: null
+  name: Cell Robotics
+  status: inaccessible
+  url: https://www.cell.com/robotics/rss
+- accessible: false
+  error: 'HTTP Error: 403 Client Error: Forbidden for url: https://www.pnas.org/action/oidcStart?redirectUri=%2Frss%2Frobotics.xml'
+  has_content: false
+  item_count: 0
+  last_updated: null
+  name: PNAS Robotics
+  status: inaccessible
+  url: https://www.pnas.org/rss/robotics.xml
+- accessible: false
+  error: 'HTTP Error: 404 Client Error: Not Found for url: https://www.csail.mit.edu/news/feed'
+  has_content: false
+  item_count: 0
+  last_updated: null
+  name: MIT CSAIL News
+  status: inaccessible
+  url: https://www.csail.mit.edu/news/feed
+- accessible: true
+  error: null
+  has_content: false
+  item_count: 0
+  last_updated: null
+  name: CMU Robotics Institute
+  recent_items: 0
+  status: no_content
+  url: https://www.ri.cmu.edu/news/feed/
+- accessible: false
+  error: 'HTTP Error: 404 Client Error: Not Found for url: https://www.stanford.edu/news/feed/'
+  has_content: false
+  item_count: 0
+  last_updated: null
+  name: Stanford News
+  status: inaccessible
+  url: https://www.stanford.edu/news/feed/
+- accessible: false
+  error: 'HTTP Error: 403 Client Error: Forbidden for url: https://www.berkeley.edu/news/feed/'
+  has_content: false
+  item_count: 0
+  last_updated: null
+  name: UC Berkeley News
+  status: inaccessible
+  url: https://www.berkeley.edu/news/feed/
+- accessible: true
+  error: null
+  has_content: true
+  item_count: 20
+  last_updated: '2025-08-01T17:04:42'
+  name: ROS Distro Commits
+  recent_items: 20
+  status: healthy
+  url: https://github.com/ros/rosdistro/commits/master.atom
+- accessible: true
+  error: null
+  has_content: true
+  item_count: 10
+  last_updated: '2025-06-11T14:51:26'
+  name: Clearpath Robotics Blog
+  recent_items: 0
+  status: stale
+  url: https://clearpathrobotics.com/feed/
+- accessible: true
+  error: null
+  has_content: true
+  item_count: 19
+  last_updated: '2025-06-24T09:00:30'
+  name: NVIDIA Robotics Blog
+  recent_items: 0
+  status: stale
+  url: https://blogs.nvidia.com/blog/category/robotics/feed/
+- accessible: false
+  error: 'HTTP Error: 404 Client Error: Not Found for url: https://ai.googleblog.com/feeds/posts/default'
+  has_content: false
+  item_count: 0
+  last_updated: null
+  name: Google AI Blog
+  status: inaccessible
+  url: https://ai.googleblog.com/feeds/posts/default
+- accessible: false
+  error: 'HTTP Error: 400 Client Error: Bad Request for url: https://research.facebook.com/blog/rss/'
+  has_content: false
+  item_count: 0
+  last_updated: null
+  name: Meta Research
+  status: inaccessible
+  url: https://research.facebook.com/blog/rss/
+- accessible: true
+  error: null
+  has_content: true
+  item_count: 10
+  last_updated: '2025-07-24T20:06:32'
+  name: Microsoft Research
+  recent_items: 8
+  status: healthy
+  url: https://www.microsoft.com/en-us/research/feed/
+- accessible: true
+  error: null
+  has_content: false
+  item_count: 0
+  last_updated: null
+  name: IBM Research
+  recent_items: 0
+  status: no_content
+  url: https://www.ibm.com/blogs/research/feed/
+- accessible: true
+  error: null
+  has_content: true
+  item_count: 100
+  last_updated: '2025-08-01T11:09:35'
+  name: DeepMind Blog
+  recent_items: 6
+  status: healthy
+  url: https://deepmind.com/blog/feed/basic/
+- accessible: false
+  error: 'HTTP Error: 404 Client Error: Not Found for url: https://ai.googleblog.com/feeds/posts/default'
+  has_content: false
+  item_count: 0
+  last_updated: null
+  name: Google AI Blog
+  status: inaccessible
+  url: https://ai.googleblog.com/feeds/posts/default
+- accessible: false
+  error: 'HTTP Error: 400 Client Error: Bad Request for url: https://research.facebook.com/blog/rss/'
+  has_content: false
+  item_count: 0
+  last_updated: null
+  name: Meta AI Research
+  status: inaccessible
+  url: https://research.facebook.com/blog/rss/
+- accessible: true
+  error: null
+  has_content: true
+  item_count: 603
+  last_updated: '2025-08-01T00:00:00'
+  name: OpenAI Blog
+  recent_items: 23
+  status: healthy
+  url: https://openai.com/blog/rss.xml
+- accessible: false
+  error: 'HTTP Error: 404 Client Error: Not Found for url: https://www.anthropic.com/index.xml'
+  has_content: false
+  item_count: 0
+  last_updated: null
+  name: Anthropic Blog
+  status: inaccessible
+  url: https://www.anthropic.com/index.xml
+- accessible: true
+  error: null
+  has_content: true
+  item_count: 10
+  last_updated: '2025-07-24T20:06:32'
+  name: Microsoft Research
+  recent_items: 8
+  status: healthy
+  url: https://www.microsoft.com/en-us/research/feed/
+- accessible: false
+  error: 'HTTP Error: 404 Client Error: Not Found for url: https://bostondynamics.com/blog/feed'
+  has_content: false
+  item_count: 0
+  last_updated: null
+  name: Boston Dynamics Blog
+  status: inaccessible
+  url: https://www.bostondynamics.com/blog/feed
+- accessible: true
+  error: null
+  has_content: true
+  item_count: 603
+  last_updated: '2025-08-01T00:00:00'
+  name: OpenAI Blog
+  recent_items: 23
+  status: healthy
+  url: https://openai.com/blog/rss.xml
+- accessible: false
+  error: 'HTTP Error: 404 Client Error: Not Found for url: https://www.universal-robots.com/blog/rss/'
+  has_content: false
+  item_count: 0
+  last_updated: null
+  name: Universal Robots Blog
+  status: inaccessible
+  url: https://www.universal-robots.com/blog/rss/
+- accessible: false
+  error: 'HTTP Error: 404 Client Error: Not Found for url: https://www.abb.com/robotics/feed'
+  has_content: false
+  item_count: 0
+  last_updated: null
+  name: ABB Robotics
+  status: inaccessible
+  url: https://www.abb.com/robotics/feed
+- accessible: true
+  error: 'Malformed RSS: <unknown>:14:37: not well-formed (invalid token)'
+  has_content: false
+  item_count: 0
+  last_updated: null
+  name: FANUC America
+  status: malformed
+  url: https://www.fanucamerica.com/blog/feed/
+- accessible: false
+  error: 'HTTP Error: 404 Client Error: Not Found for url: https://www.kuka.com/en-us/press/feed'
+  has_content: false
+  item_count: 0
+  last_updated: null
+  name: KUKA Robotics
+  status: inaccessible
+  url: https://www.kuka.com/en-us/press/feed
+- accessible: false
+  error: 'HTTP Error: 404 Client Error: Not Found for url: https://www.yaskawa.com/feed'
+  has_content: false
+  item_count: 0
+  last_updated: null
+  name: Yaskawa Robotics
+  status: inaccessible
+  url: https://www.yaskawa.com/feed
+- accessible: true
+  error: null
+  has_content: false
+  item_count: 0
+  last_updated: null
+  name: Adept Technology
+  recent_items: 0
+  status: no_content
+  url: https://www.adept.com/feed/
+- accessible: false
+  error: 'HTTP Error: 403 Client Error: Forbidden for url: https://www.tesla.com/blog/feed'
+  has_content: false
+  item_count: 0
+  last_updated: null
+  name: Tesla Blog
+  status: inaccessible
+  url: https://www.tesla.com/blog/feed
+- accessible: false
+  error: 'HTTP Error: 404 Client Error: Not Found for url: https://waymo.com/blog/feed/'
+  has_content: false
+  item_count: 0
+  last_updated: null
+  name: Waymo Blog
+  status: inaccessible
+  url: https://waymo.com/blog/feed/
+- accessible: false
+  error: 'HTTP Error: 404 Client Error: Not Found for url: https://www.cruise.com/blog/feed/'
+  has_content: false
+  item_count: 0
+  last_updated: null
+  name: Cruise Blog
+  status: inaccessible
+  url: https://www.cruise.com/blog/feed/
+- accessible: false
+  error: 'HTTP Error: 404 Client Error: Not Found for url: https://www.dji.com/ch/404?from=/ch/news/feed'
+  has_content: false
+  item_count: 0
+  last_updated: null
+  name: DJI News
+  status: inaccessible
+  url: https://www.dji.com/news/feed
+- accessible: false
+  error: 'HTTP Error: 404 Client Error: Not Found for url: https://www.parrot.com/news/feed/'
+  has_content: false
+  item_count: 0
+  last_updated: null
+  name: Parrot News
+  status: inaccessible
+  url: https://www.parrot.com/news/feed/
+- accessible: true
+  error: 'Malformed RSS: <unknown>:8:9: mismatched tag'
+  has_content: false
+  item_count: 0
+  last_updated: null
+  name: Intuitive Surgical
+  status: malformed
+  url: https://www.intuitivesurgical.com/news/feed/
+- accessible: false
+  error: 'HTTP Error: HTTPSConnectionPool(host=''www.medtronic.com'', port=443): Read
+    timed out. (read timeout=30)'
+  has_content: false
+  item_count: 0
+  last_updated: null
+  name: Medtronic News
+  status: inaccessible
+  url: https://www.medtronic.com/news/feed
+- accessible: true
+  error: 'Malformed RSS: <unknown>:3:0: syntax error'
+  has_content: false
+  item_count: 0
+  last_updated: null
+  name: Stryker News
+  status: malformed
+  url: https://www.stryker.com/news/feed/
+- accessible: true
+  error: null
+  has_content: true
+  item_count: 26
+  last_updated: '2025-08-03T21:38:01'
+  name: Reddit r/robotics
+  recent_items: 25
+  status: healthy
+  url: https://old.reddit.com/r/robotics/.rss
+- accessible: true
+  error: null
+  has_content: true
+  item_count: 26
+  last_updated: '2025-08-03T19:30:37'
+  name: Reddit r/ROS
+  recent_items: 26
+  status: healthy
+  url: https://old.reddit.com/r/ROS/.rss
+- accessible: true
+  error: null
+  has_content: true
+  item_count: 25
+  last_updated: '2025-08-02T19:36:31'
+  name: Reddit r/AutonomousVehicles
+  recent_items: 13
+  status: healthy
+  url: https://old.reddit.com/r/AutonomousVehicles/.rss
+- accessible: true
+  error: null
+  has_content: true
+  item_count: 26
+  last_updated: '2025-08-03T22:38:15'
+  name: Reddit r/drones
+  recent_items: 25
+  status: healthy
+  url: https://old.reddit.com/r/drones/.rss
+- accessible: true
+  error: null
+  has_content: true
+  item_count: 9
+  last_updated: '2025-08-03T21:16:43'
+  name: Medium Robotics
+  recent_items: 9
+  status: healthy
+  url: https://medium.com/feed/tag/robotics
+- accessible: false
+  error: 'HTTP Error: 404 Client Error: Not Found for url: https://medium.com/feed/robops'
+  has_content: false
+  item_count: 0
+  last_updated: null
+  name: RobOps
+  status: inaccessible
+  url: https://medium.com/feed/robops
+- accessible: true
+  error: null
+  has_content: false
+  item_count: 0
+  last_updated: null
+  name: Medium AI
+  recent_items: 0
+  status: no_content
+  url: https://medium.com/feed/artificial-intelligence
+- accessible: true
+  error: null
+  has_content: true
+  item_count: 5
+  last_updated: '2025-01-17T09:32:00'
+  name: RoboLinks
+  recent_items: 0
+  status: stale
+  url: https://medium.com/feed/robolinks
+- accessible: false
+  error: 'HTTP Error: 404 Client Error: Not Found for url: https://www.automationworld.com/robotics/feed'
+  has_content: false
+  item_count: 0
+  last_updated: null
+  name: Automation World Robotics
+  status: inaccessible
+  url: https://www.automationworld.com/robotics/feed
+- accessible: true
+  error: 'Malformed RSS: <unknown>:21:20: not well-formed (invalid token)'
+  has_content: false
+  item_count: 0
+  last_updated: null
+  name: Robotics.org
+  status: malformed
+  url: https://www.robotics.org/feed/
+- accessible: true
+  error: null
+  has_content: false
+  item_count: 0
+  last_updated: null
+  name: Medical Robotics
+  recent_items: 0
+  status: no_content
+  url: https://www.medicalrobotics.org/feed/
+- accessible: false
+  error: 'HTTP Error: 404 Client Error: Not Found for url: https://www.manufacturingtomorrow.com/robotics/feed'
+  has_content: false
+  item_count: 0
+  last_updated: null
+  name: Manufacturing Tomorrow Robotics
+  status: inaccessible
+  url: https://www.manufacturingtomorrow.com/robotics/feed
+- accessible: true
+  error: 'Malformed RSS: <unknown>:16:43: not well-formed (invalid token)'
+  has_content: false
+  item_count: 0
+  last_updated: null
+  name: Automation.com Robotics
+  status: malformed
+  url: https://www.automation.com/robotics/feed
+- accessible: false
+  error: 'HTTP Error: 403 Client Error: Forbidden for url: https://www.controleng.com/robotics/feed/'
+  has_content: false
+  item_count: 0
+  last_updated: null
+  name: Control Engineering Robotics
+  status: inaccessible
+  url: https://www.controleng.com/robotics/feed/
+- accessible: false
+  error: 'HTTP Error: 404 Client Error: Not Found for url: https://www.nist.gov/news-events/news/feed'
+  has_content: false
+  item_count: 0
+  last_updated: null
+  name: NIST News
+  status: inaccessible
+  url: https://www.nist.gov/news-events/news/feed
+- accessible: false
+  error: 'HTTP Error: 404 Client Error: Not Found for url: https://www.darpa.mil/news/feed'
+  has_content: false
+  item_count: 0
+  last_updated: null
+  name: DARPA News
+  status: inaccessible
+  url: https://www.darpa.mil/news/feed
+- accessible: true
+  error: null
+  has_content: true
+  item_count: 10
+  last_updated: '2025-08-01T20:58:36'
+  name: NASA News
+  recent_items: 10
+  status: healthy
+  url: https://www.nasa.gov/feed/

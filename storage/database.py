@@ -686,6 +686,76 @@ class DatabaseManager:
             logger.error(f"Error checking URL existence: {e}")
             return False
     
+    def title_similarity_exists(self, title: str, similarity_threshold: float = 0.8) -> bool:
+        """Check if a similar title already exists in the database.
+        
+        Args:
+            title: Title to check
+            similarity_threshold: Minimum similarity threshold (0.0 to 1.0)
+            
+        Returns:
+            True if similar title exists, False otherwise
+        """
+        try:
+            from difflib import SequenceMatcher
+            
+            with self.get_connection() as conn:
+                cursor = conn.cursor()
+                cursor.execute("SELECT title FROM articles ORDER BY created_at DESC LIMIT 1000")
+                existing_titles = [row['title'] for row in cursor.fetchall()]
+                
+                title_lower = title.lower()
+                for existing_title in existing_titles:
+                    existing_lower = existing_title.lower()
+                    similarity = SequenceMatcher(None, title_lower, existing_lower).ratio()
+                    if similarity >= similarity_threshold:
+                        return True
+                
+                return False
+        except Exception as e:
+            logger.error(f"Error checking title similarity: {e}")
+            return False
+    
+    def is_duplicate_content(self, title: str, url: str, content_preview: str = None) -> bool:
+        """Check if content is duplicate based on URL and title similarity.
+        
+        Args:
+            title: Article title
+            url: Article URL
+            content_preview: Preview of article content (optional)
+            
+        Returns:
+            True if duplicate content detected, False otherwise
+        """
+        # Check URL first (exact match)
+        if self.url_exists(url):
+            return True
+        
+        # Check title similarity (fuzzy match)
+        if self.title_similarity_exists(title):
+            return True
+        
+        # Optional: Check content similarity if preview provided
+        if content_preview:
+            try:
+                from difflib import SequenceMatcher
+                
+                with self.get_connection() as conn:
+                    cursor = conn.cursor()
+                    cursor.execute("SELECT text FROM articles ORDER BY created_at DESC LIMIT 500")
+                    existing_contents = [row['text'] for row in cursor.fetchall()]
+                    
+                    content_lower = content_preview.lower()
+                    for existing_content in existing_contents:
+                        existing_lower = existing_content.lower()
+                        similarity = SequenceMatcher(None, content_lower, existing_lower).ratio()
+                        if similarity >= 0.7:  # 70% content similarity threshold
+                            return True
+            except Exception as e:
+                logger.error(f"Error checking content similarity: {e}")
+        
+        return False
+    
     def delete_duplicate_urls(self) -> int:
         """Delete duplicate articles based on URL.
         

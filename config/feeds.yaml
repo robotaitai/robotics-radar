@@ -85,7 +85,7 @@ feeds:
   # University Research Labs
   - url: https://www.csail.mit.edu/news/feed
     name: "MIT CSAIL News"
-    tags: [robotics, research, mit, ai]
+    tags: [robotics, research, mit, AI]
     enabled: true
 
   - url: https://www.ri.cmu.edu/news/feed/
@@ -122,22 +122,53 @@ feeds:
   # Additional Tech Companies
   - url: https://ai.googleblog.com/feeds/posts/default
     name: "Google AI Blog"
-    tags: [ai, robotics, google, research]
+    tags: [AI, robotics, google, research]
     enabled: true
 
   - url: https://research.facebook.com/blog/rss/
     name: "Meta Research"
-    tags: [ai, robotics, meta, research]
+    tags: [AI, robotics, meta, research]
     enabled: true
 
   - url: https://www.microsoft.com/en-us/research/feed/
     name: "Microsoft Research"
-    tags: [ai, robotics, microsoft, research]
+    tags: [AI, robotics, microsoft, research]
     enabled: true
 
   - url: https://www.ibm.com/blogs/research/feed/
     name: "IBM Research"
-    tags: [ai, robotics, ibm, research]
+    tags: [AI, robotics, ibm, research]
+    enabled: true
+
+  # AI for Robotics Research
+  - url: https://deepmind.com/blog/feed/basic/
+    name: "DeepMind Blog"
+    tags: [AI, robotics, deepmind, research, embodied_ai]
+    enabled: true
+
+  - url: https://ai.googleblog.com/feeds/posts/default
+    name: "Google AI Blog"
+    tags: [AI, robotics, google, research, embodied_ai]
+    enabled: true
+
+  - url: https://research.facebook.com/blog/rss/
+    name: "Meta AI Research"
+    tags: [AI, robotics, meta, research, embodied_ai]
+    enabled: true
+
+  - url: https://openai.com/blog/rss.xml
+    name: "OpenAI Blog"
+    tags: [AI, robotics, openai, research, embodied_ai]
+    enabled: true
+
+  - url: https://www.anthropic.com/index.xml
+    name: "Anthropic Blog"
+    tags: [AI, robotics, anthropic, research, embodied_ai]
+    enabled: true
+
+  - url: https://www.microsoft.com/en-us/research/feed/
+    name: "Microsoft Research"
+    tags: [AI, robotics, microsoft, research, embodied_ai]
     enabled: true
 
   # Company Blogs
@@ -148,7 +179,7 @@ feeds:
 
   - url: https://openai.com/blog/rss.xml
     name: "OpenAI Blog"
-    tags: [ai, robotics, company]
+    tags: [AI, robotics, company]
     enabled: true
 
   - url: https://www.universal-robots.com/blog/rss/
@@ -248,7 +279,7 @@ feeds:
   # Medium Publications
   - url: https://medium.com/feed/tag/robotics
     name: "Medium Robotics"
-    tags: [medium, robotics, blog]
+    tags: [medium, AI, robotics]
     enabled: true
 
   - url: https://medium.com/feed/robops
@@ -258,7 +289,7 @@ feeds:
 
   - url: https://medium.com/feed/artificial-intelligence
     name: "Medium AI"
-    tags: [medium, ai, robotics]
+    tags: [medium, AI, robotics]
     enabled: true
 
   - url: https://medium.com/feed/robolinks

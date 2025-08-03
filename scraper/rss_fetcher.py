@@ -217,8 +217,25 @@ class RSSFetcher:
         cutoff_date = datetime.now() - timedelta(days=max_age_days)
         
         for item in items:
+            # Data quality checks
+            title = item.get('title', '').strip()
+            content = item.get('content', '').strip()
+            url = item.get('link', '').strip()
+            
+            # Skip items with missing essential data
+            if not title or not url:
+                continue
+            
+            # Skip items with very short or empty content
+            if len(content) < 50:  # Minimum content length
+                continue
+            
+            # Skip items that are just stubs or placeholders
+            if self._is_stub_content(title, content):
+                continue
+            
             # Check content length
-            content_length = len(item.get('content', '')) + len(item.get('title', ''))
+            content_length = len(content) + len(title)
             if content_length < min_content_length:
                 continue
             
@@ -227,7 +244,7 @@ class RSSFetcher:
                 continue
             
             # Check for exclude keywords
-            content_text = f"{item.get('title', '')} {item.get('content', '')}".lower()
+            content_text = f"{title} {content}".lower()
             if any(keyword.lower() in content_text for keyword in exclude_keywords):
                 continue
             
@@ -240,10 +257,75 @@ class RSSFetcher:
             if not self.keyword_extractor.is_robotics_related(content_text):
                 continue
             
+            # Check for duplicates
+            if self.db.is_duplicate_content(title, url, content[:200]):
+                continue
+            
             filtered_items.append(item)
         
         logger.info(f"Filtered {len(items)} items down to {len(filtered_items)}")
         return filtered_items
+    
+    def _is_stub_content(self, title: str, content: str) -> bool:
+        """Check if content is just a stub or placeholder.
+        
+        Args:
+            title: Article title
+            content: Article content
+            
+        Returns:
+            True if content is a stub, False otherwise
+        """
+        # Common stub indicators
+        stub_indicators = [
+            'coming soon',
+            'stay tuned',
+            'more details to follow',
+            'announcement coming',
+            'details to be announced',
+            'full story coming',
+            'read more',
+            'click here',
+            'learn more',
+            'find out more',
+            'coming up next',
+            'stay updated',
+            'follow us',
+            'subscribe',
+            'newsletter',
+            'press release',
+            'media alert',
+            'save the date',
+            'event announcement',
+            'webinar announcement',
+            'conference announcement',
+            'workshop announcement',
+            'training announcement',
+            'certification announcement'
+        ]
+        
+        combined_text = f"{title} {content}".lower()
+        
+        # Check for stub indicators
+        for indicator in stub_indicators:
+            if indicator in combined_text:
+                return True
+        
+        # Check for very short content with common placeholder patterns
+        if len(content) < 100:
+            placeholder_patterns = [
+                r'^\s*$',  # Empty or whitespace only
+                r'^[^\w]*$',  # No word characters
+                r'^[A-Z\s]+$',  # All caps with spaces only
+                r'^[0-9\s]+$',  # Numbers and spaces only
+            ]
+            
+            import re
+            for pattern in placeholder_patterns:
+                if re.match(pattern, content):
+                    return True
+        
+        return False
     
     def _convert_to_articles(self, items: List[Dict]) -> List[Article]:
         """Convert feed items to Article objects.
