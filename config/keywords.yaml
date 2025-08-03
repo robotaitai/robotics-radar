@@ -1,0 +1,99 @@
+domain: robotics
+keywords:
+  - robotics research
+  - open-source robotics
+  - robot announcement
+  - autonomous systems
+  - AI robotics
+  - robotic arm
+  - computer vision robotics
+  - ROS2
+  - industrial robotics
+  - service robots
+  - drone technology
+  - self-driving cars
+  - robotic surgery
+  - humanoid robots
+  - swarm robotics
+  - soft robotics
+  - bio-inspired robotics
+  - collaborative robots
+  - mobile robotics
+  - robotic learning
+  - Vision-Language-Action (VLA)
+  - vision-language models
+  - V-JEPA 2
+  - transformer-based control
+  - reinforcement learning robotics
+  - diffusion policy
+  - edge robotics
+  - drone swarms
+  - embodied AI
+  - synthetic data robotics
+  - robotics foundation models
+  - sim-to-real
+  - Policy Composition
+  - Hierarchical RL
+  - Scene Graphs for Manipulation
+languages:
+  - en
+exclude_keywords:
+  - hiring
+  - webinar
+  - job posting
+  - career
+  - apply now
+  - remote work
+  - internship
+  - sales pitch
+  - advertisement
+  - sponsored
+
+# Scoring configuration
+scoring_weights:
+  likes: 1.0
+  retweets: 2.0
+  replies: 1.5
+  user_feedback: 3.0
+  author_followers: 0.1
+  content_length: 0.5
+
+# Category-based scoring weights
+category_weights:
+  industrial_automation: 1.0
+  educational_robotics: 1.0
+  robotics_ethics: 0.5
+  agricultural_robotics: 10.0
+  medical_robotics: 1.0
+  autonomous_vehicles: 10.0
+  humanoid_robotics: 8.0
+  swarm_robotics: 5.0
+  soft_robotics: 0.5
+  research_robotics: 1.0
+  consumer_robotics: 1.0
+  military_robotics: 1.0
+  space_robotics: 1.0
+  underwater_robotics: 1.0
+  aerial_robotics: 1.0
+  collaborative_robotics: 1.0
+  mobile_robotics: 1.0
+  robotics_software: 1.0
+  robotics_hardware: 1.0
+  ai_robotics: 1.0
+  robotics_general: 0.5  # Default weight for general robotics content
+
+# User preference learning
+user_preferences:
+  enabled: true
+  learning_rate: 0.1
+  decay_factor: 0.95
+  min_feedback_count: 3
+
+# Filtering thresholds
+min_likes: 10
+min_retweets: 5
+min_author_followers: 1000
+
+# Notification settings
+top_tweets_count: 10
+notification_frequency: "10s"  # (For production, use "2h" instead of 10s)

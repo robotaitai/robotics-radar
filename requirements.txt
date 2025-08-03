@@ -1,0 +1,32 @@
+# Core dependencies
+tweepy
+PyYAML
+python-telegram-bot
+fastapi
+streamlit
+uvicorn
+
+# NLP and ML
+spacy
+scikit-learn
+numpy
+pandas
+
+# Scheduling
+APScheduler
+
+# HTTP requests
+requests
+
+# Data visualization
+plotly
+matplotlib
+
+# Development and testing
+pytest
+black
+flake8
+mypy
+
+# Environment management
+python-dotenv 
