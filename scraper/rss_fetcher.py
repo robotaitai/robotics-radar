@@ -52,7 +52,25 @@ class RSSFetcher:
         try:
             with open(self.config_path, 'r') as file:
                 config = yaml.safe_load(file)
-            logger.info("RSS feeds configuration loaded successfully")
+            
+            # Handle new profile-based structure
+            if 'profiles' in config:
+                active_profile = config.get('active_profile', 'frontier')
+                if active_profile in config['profiles']:
+                    profile_config = config['profiles'][active_profile]
+                    # Extract feeds from the active profile
+                    config = {
+                        'feeds': profile_config.get('feeds', []),
+                        'name': profile_config.get('name', active_profile),
+                        'description': profile_config.get('description', '')
+                    }
+                    logger.info(f"RSS feeds configuration loaded from profile: {active_profile}")
+                else:
+                    logger.error(f"Active profile '{active_profile}' not found in configuration")
+                    config = {'feeds': []}
+            else:
+                logger.info("RSS feeds configuration loaded successfully")
+            
             return config
         except Exception as e:
             logger.error(f"Error loading RSS configuration: {e}")

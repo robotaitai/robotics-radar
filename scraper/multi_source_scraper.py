@@ -253,8 +253,8 @@ class MultiSourceScraper:
                     'mode': source_key
                 }
         
-        # Get overall top articles
-        top_articles = self.db.get_top_articles(limit=10)
+        # Get diverse articles (mix of high-score and recent)
+        top_articles = self.db.get_diverse_articles(limit=10)
         
         return {
             'total_fetched': total_fetched,

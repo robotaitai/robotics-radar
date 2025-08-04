@@ -1,436 +1,378 @@
-# Robotics Radar - RSS/Atom Feeds Configuration
-# This file defines the RSS/Atom feeds and Medium publications to fetch content from
-
-feeds:
-  # Robotics News and Business
-  - url: https://www.roboticsbusinessreview.com/feed/
-    name: "Robotics Business Review"
-    tags: [robotics, news, business]
-    enabled: true
-
-  - url: https://robohub.org/feed/
-    name: "Robohub"
-    tags: [robotics, research, academic]
-    enabled: true
-
-  - url: https://spectrum.ieee.org/robotics/rss.xml
-    name: "IEEE Spectrum Robotics"
-    tags: [robotics, engineering, technical]
-    enabled: true
-
-  - url: https://www.technologyreview.com/topic/robotics/feed/
-    name: "MIT Technology Review Robotics"
-    tags: [robotics, research, breakthrough]
-    enabled: true
-
-  - url: https://www.therobotreport.com/feed/
-    name: "The Robot Report"
-    tags: [robotics, news, industry]
-    enabled: true
-
-  - url: https://roboticsandautomationnews.com/feed/
-    name: "Robotics & Automation News"
-    tags: [robotics, news, industry]
-    enabled: true
-
-  - url: https://www.theguardian.com/technology/robots/rss
-    name: "The Guardian - Robots"
-    tags: [robotics, news, general]
-    enabled: true
-
-  # Research and Academic
-  - url: https://arxiv.org/rss/cs.RO
-    name: "arXiv Robotics"
-    tags: [robotics, research, arxiv, academic]
-    enabled: true
-
-  - url: https://www.science.org/action/showFeed?journalCode=scirobotics&type=etoc&feedType=rss
-    name: "Science Robotics"
-    tags: [science, research, robotics]
-    enabled: true
-
-  - url: https://www.frontiersin.org/journals/robotics-and-ai/rss
-    name: "Frontiers in Robotics & AI"
-    tags: [robotics, research, academic]
-    enabled: true
-
-  - url: http://news.mit.edu/topic/robotics/feed
-    name: "MIT News - Robotics"
-    tags: [robotics, research, news]
-    enabled: true
-
-  - url: https://www.sciencedaily.com/rss/computers_math/robotics.xml
-    name: "ScienceDaily Robotics"
-    tags: [robotics, science, news]
-    enabled: true
-
-  # Additional Research Sources
-  - url: https://www.nature.com/subjects/robotics.rss
-    name: "Nature Robotics"
-    tags: [robotics, research, science, nature]
-    enabled: true
-
-  - url: https://www.cell.com/robotics/rss
-    name: "Cell Robotics"
-    tags: [robotics, research, science, cell]
-    enabled: true
-
-  - url: https://www.pnas.org/rss/robotics.xml
-    name: "PNAS Robotics"
-    tags: [robotics, research, science, pnas]
-    enabled: true
-
-  # Removed Science Advances - too general, not robotics-specific
-
-  # University Research Labs
-  - url: https://www.csail.mit.edu/news/feed
-    name: "MIT CSAIL News"
-    tags: [robotics, research, mit, AI]
-    enabled: true
-
-  - url: https://www.ri.cmu.edu/news/feed/
-    name: "CMU Robotics Institute"
-    tags: [robotics, research, cmu, academic]
-    enabled: true
-
-  - url: https://www.stanford.edu/news/feed/
-    name: "Stanford News"
-    tags: [robotics, research, stanford, academic]
-    enabled: true
-
-  - url: https://www.berkeley.edu/news/feed/
-    name: "UC Berkeley News"
-    tags: [robotics, research, berkeley, academic]
-    enabled: true
-
-  # Open Source & Tech
-  - url: https://github.com/ros/rosdistro/commits/master.atom
-    name: "ROS Distro Commits"
-    tags: [open-source, ros, github]
-    enabled: true
-
-  - url: https://clearpathrobotics.com/feed/
-    name: "Clearpath Robotics Blog"
-    tags: [robotics, company, open-source]
-    enabled: true
-
-  - url: https://blogs.nvidia.com/blog/category/robotics/feed/
-    name: "NVIDIA Robotics Blog"
-    tags: [robotics, AI, company]
-    enabled: true
-
-  # Additional Tech Companies
-  - url: https://ai.googleblog.com/feeds/posts/default
-    name: "Google AI Blog"
-    tags: [AI, robotics, google, research]
-    enabled: true
-
-  - url: https://research.facebook.com/blog/rss/
-    name: "Meta Research"
-    tags: [AI, robotics, meta, research]
-    enabled: true
-
-  - url: https://www.microsoft.com/en-us/research/feed/
-    name: "Microsoft Research"
-    tags: [AI, robotics, microsoft, research]
-    enabled: true
-
-  - url: https://www.ibm.com/blogs/research/feed/
-    name: "IBM Research"
-    tags: [AI, robotics, ibm, research]
-    enabled: true
-
-  # AI for Robotics Research
-  - url: https://deepmind.com/blog/feed/basic/
-    name: "DeepMind Blog"
-    tags: [AI, robotics, deepmind, research, embodied_ai]
-    enabled: true
-
-  - url: https://ai.googleblog.com/feeds/posts/default
-    name: "Google AI Blog"
-    tags: [AI, robotics, google, research, embodied_ai]
-    enabled: true
-
-  - url: https://research.facebook.com/blog/rss/
-    name: "Meta AI Research"
-    tags: [AI, robotics, meta, research, embodied_ai]
-    enabled: true
-
-  - url: https://openai.com/blog/rss.xml
-    name: "OpenAI Blog"
-    tags: [AI, robotics, openai, research, embodied_ai]
-    enabled: true
-
-  - url: https://www.anthropic.com/index.xml
-    name: "Anthropic Blog"
-    tags: [AI, robotics, anthropic, research, embodied_ai]
-    enabled: true
-
-  - url: https://www.microsoft.com/en-us/research/feed/
-    name: "Microsoft Research"
-    tags: [AI, robotics, microsoft, research, embodied_ai]
-    enabled: true
-
-  # Company Blogs
-  - url: https://www.bostondynamics.com/blog/feed
-    name: "Boston Dynamics Blog"
-    tags: [robotics, company]
-    enabled: true
-
-  - url: https://openai.com/blog/rss.xml
-    name: "OpenAI Blog"
-    tags: [AI, robotics, company]
-    enabled: true
-
-  - url: https://www.universal-robots.com/blog/rss/
-    name: "Universal Robots Blog"
-    tags: [robotics, industrial, company]
-    enabled: true
-
-  # Additional Robotics Companies
-  - url: https://www.abb.com/robotics/feed
-    name: "ABB Robotics"
-    tags: [robotics, industrial, company]
-    enabled: true
-
-  - url: https://www.fanucamerica.com/blog/feed/
-    name: "FANUC America"
-    tags: [robotics, industrial, company]
-    enabled: true
-
-  - url: https://www.kuka.com/en-us/press/feed
-    name: "KUKA Robotics"
-    tags: [robotics, industrial, company]
-    enabled: true
-
-  - url: https://www.yaskawa.com/feed
-    name: "Yaskawa Robotics"
-    tags: [robotics, industrial, company]
-    enabled: true
-
-  - url: https://www.adept.com/feed/
-    name: "Adept Technology"
-    tags: [robotics, industrial, company]
-    enabled: true
-
-  # Autonomous Vehicles & Drones
-  - url: https://www.tesla.com/blog/feed
-    name: "Tesla Blog"
-    tags: [autonomous, vehicles, tesla, company]
-    enabled: true
-
-  - url: https://waymo.com/blog/feed/
-    name: "Waymo Blog"
-    tags: [autonomous, vehicles, waymo, company]
-    enabled: true
-
-  - url: https://www.cruise.com/blog/feed/
-    name: "Cruise Blog"
-    tags: [autonomous, vehicles, cruise, company]
-    enabled: true
-
-  - url: https://www.dji.com/news/feed
-    name: "DJI News"
-    tags: [drones, uav, dji, company]
-    enabled: true
-
-  - url: https://www.parrot.com/news/feed/
-    name: "Parrot News"
-    tags: [drones, uav, parrot, company]
-    enabled: true
-
-  # Medical & Healthcare Robotics
-  - url: https://www.intuitivesurgical.com/news/feed/
-    name: "Intuitive Surgical"
-    tags: [medical, robotics, healthcare, company]
-    enabled: true
-
-  - url: https://www.medtronic.com/news/feed
-    name: "Medtronic News"
-    tags: [medical, robotics, healthcare, company]
-    enabled: true
-
-  - url: https://www.stryker.com/news/feed/
-    name: "Stryker News"
-    tags: [medical, robotics, healthcare, company]
-    enabled: true
-
-  # Subreddits
-  - url: https://old.reddit.com/r/robotics/.rss
-    name: "Reddit r/robotics"
-    tags: [robotics, community, reddit]
-    enabled: true
-
-  - url: https://old.reddit.com/r/ROS/.rss
-    name: "Reddit r/ROS"
-    tags: [ros, community, reddit]
-    enabled: true
-
-  - url: https://old.reddit.com/r/AutonomousVehicles/.rss
-    name: "Reddit r/AutonomousVehicles"
-    tags: [autonomous, vehicles, community, reddit]
-    enabled: true
-
-  - url: https://old.reddit.com/r/drones/.rss
-    name: "Reddit r/drones"
-    tags: [drones, uav, community, reddit]
-    enabled: true
-
-  # Medium Publications
-  - url: https://medium.com/feed/tag/robotics
-    name: "Medium Robotics"
-    tags: [medium, AI, robotics]
-    enabled: true
-
-  - url: https://medium.com/feed/robops
-    name: "RobOps"
-    tags: [medium, robotics, operations]
-    enabled: true
-
-  - url: https://medium.com/feed/artificial-intelligence
-    name: "Medium AI"
-    tags: [medium, AI, robotics]
-    enabled: true
-
-  - url: https://medium.com/feed/robolinks
-    name: "RoboLinks"
-    tags: [medium, robotics, blog]
-    enabled: true
-
-  # Industry and Technical
-  - url: https://www.automationworld.com/robotics/feed
-    name: "Automation World Robotics"
-    tags: [robotics, industrial, automation]
-    enabled: true
-
-  - url: https://www.robotics.org/feed/
-    name: "Robotics.org"
-    tags: [robotics, industrial, manufacturing]
-    enabled: true
-
-  - url: https://www.medicalrobotics.org/feed/
-    name: "Medical Robotics"
-    tags: [robotics, medical, healthcare]
-    enabled: true
-
-  # Additional Industry Sources
-  - url: https://www.manufacturingtomorrow.com/robotics/feed
-    name: "Manufacturing Tomorrow Robotics"
-    tags: [robotics, manufacturing, industry]
-    enabled: true
-
-  - url: https://www.automation.com/robotics/feed
-    name: "Automation.com Robotics"
-    tags: [robotics, automation, industry]
-    enabled: true
-
-  - url: https://www.controleng.com/robotics/feed/
-    name: "Control Engineering Robotics"
-    tags: [robotics, control, engineering]
-    enabled: true
-
-  # Government & Standards
-  - url: https://www.nist.gov/news-events/news/feed
-    name: "NIST News"
-    tags: [robotics, standards, government, nist]
-    enabled: true
-
-  - url: https://www.darpa.mil/news/feed
-    name: "DARPA News"
-    tags: [robotics, defense, government, darpa]
-    enabled: true
-
-  - url: https://www.nasa.gov/feed/
-    name: "NASA News"
-    tags: [robotics, space, government, nasa]
-    enabled: true
+# Robotics Radar - Unified Feeds Configuration
+# This file contains all feeds organized by profiles for easy switching
+
+# Configuration profiles - set 'active_profile' to switch between them
+active_profile: "frontier"  # Options: "frontier", "balanced", "industry", "clean"
+
+profiles:
+  frontier:
+    name: "Frontier AI Research"
+    description: "80% research, 20% industry - Catch breakthroughs 2-6 months early"
+    feeds:
+      # arXiv Research Feeds (Essential)
+      - url: https://arxiv.org/rss/cs.AI
+        name: "arXiv Artificial Intelligence"
+        tags: [ai, research, robotics, arxiv]
+        enabled: true
+
+      - url: https://arxiv.org/rss/cs.CV
+        name: "arXiv Computer Vision"
+        tags: [computer vision, ai, robotics, research, arxiv]
+        enabled: true
+
+      - url: https://arxiv.org/rss/cs.LG
+        name: "arXiv Machine Learning"
+        tags: [machine learning, ai, robotics, research, arxiv]
+        enabled: true
+
+      - url: https://arxiv.org/rss/stat.ML
+        name: "arXiv Statistical ML"
+        tags: [machine learning, ai, robotics, research, arxiv]
+        enabled: true
+
+      - url: https://arxiv.org/rss/cs.RO
+        name: "arXiv Robotics"
+        tags: [robotics, research, arxiv, academic]
+        enabled: true
+
+      # AI Newsletters & Aggregators (High-Value)
+      - url: https://jack-clark.net/feed/
+        name: "Import AI Newsletter"
+        tags: [ai, robotics, research, frontier, newsletter]
+        enabled: true
+
+      - url: https://www.deeplearning.ai/thebatch/feed/
+        name: "The Batch - DeepLearning.AI"
+        tags: [ai, machine learning, robotics, newsletter, research]
+        enabled: true
+
+      - url: https://paperswithcode.com/rss
+        name: "Papers with Code"
+        tags: [ai, machine learning, robotics, open-source, research]
+        enabled: true
+
+      # Frontier GitHub Repos (Real-Time ML research)
+      - url: https://github.com/Kiloreux/awesome-robotics/commits/main.atom
+        name: "Awesome Robotics Commits"
+        tags: [robotics, open-source, research, github]
+        enabled: true
+
+      - url: https://github.com/josephmisiti/awesome-machine-learning/commits/master.atom
+        name: "Awesome ML Commits"
+        tags: [machine learning, ai, open-source, github]
+        enabled: true
+
+      # Community & Real-time signals
+      - url: https://hnrss.org/newest?q=robotics
+        name: "Hacker News Robotics"
+        tags: [robotics, ai, hackernews, community]
+        enabled: true
+
+      - url: https://hnrss.org/newest?q=AI
+        name: "Hacker News AI"
+        tags: [ai, robotics, hackernews, community]
+        enabled: true
+
+      - url: https://www.reddit.com/r/MachineLearning/new.json
+        name: "Reddit r/MachineLearning"
+        tags: [machine learning, ai, robotics, reddit, community]
+        enabled: true
+
+      - url: https://www.reddit.com/r/artificial/new.json
+        name: "Reddit r/artificial"
+        tags: [ai, robotics, reddit, community]
+        enabled: true
+
+      # Core Robotics Sources
+      - url: https://robohub.org/feed/
+        name: "Robohub"
+        tags: [robotics, research, academic]
+        enabled: true
+
+      - url: https://www.science.org/action/showFeed?journalCode=scirobotics&type=etoc&feedType=rss
+        name: "Science Robotics"
+        tags: [science, research, robotics]
+        enabled: true
+
+      - url: https://www.frontiersin.org/journals/robotics-and-ai/rss
+        name: "Frontiers in Robotics & AI"
+        tags: [robotics, research, academic]
+        enabled: true
+
+      # Weekly Robotics Curated Sources (High-Quality)
+      - url: https://eurobot.org/feed
+        name: "Eurobot"
+        tags: [robotics, competition, europe, weekly-robotics]
+        enabled: true
+
+      - url: https://events.linuxfoundation.org/feed
+        name: "Linux Foundation Events"
+        tags: [robotics, open-source, events, weekly-robotics]
+        enabled: true
+
+      - url: https://hackaday.com/feed
+        name: "Hackaday"
+        tags: [robotics, hardware, diy, weekly-robotics]
+        enabled: true
+
+      - url: https://spectrum.ieee.org/rss
+        name: "IEEE Spectrum"
+        tags: [robotics, technology, ieee, weekly-robotics]
+        enabled: true
+
+      - url: https://2024.oshwa.org/feed
+        name: "OSHWA 2024"
+        tags: [robotics, open-hardware, weekly-robotics]
+        enabled: true
+
+      - url: https://roboticsconference.org/atom
+        name: "Robotics Conference"
+        tags: [robotics, conference, research, weekly-robotics]
+        enabled: true
+
+      - url: https://cppcon.org/feed
+        name: "CppCon"
+        tags: [robotics, programming, cpp, weekly-robotics]
+        enabled: true
+
+      - url: https://2025.robocup.org/feed
+        name: "RoboCup 2025"
+        tags: [robotics, competition, ai, weekly-robotics]
+        enabled: true
+
+      # Industry & News Sources
+      - url: https://www.therobotreport.com/feed/
+        name: "The Robot Report"
+        tags: [robotics, news, industry]
+        enabled: true
+
+      - url: https://roboticsandautomationnews.com/feed/
+        name: "Robotics & Automation News"
+        tags: [robotics, news, industry]
+        enabled: true
+
+      # AI Company Blogs
+      - url: https://blog.deepmind.com/feed/brand/deepmind/
+        name: "DeepMind Blog"
+        tags: [ai, robotics, research, deepmind]
+        enabled: true
+
+      - url: https://openai.com/blog/rss.xml
+        name: "OpenAI Blog"
+        tags: [ai, robotics, research, openai]
+        enabled: true
+
+      - url: https://research.microsoft.com/en-us/rss/
+        name: "Microsoft Research"
+        tags: [ai, robotics, research, microsoft]
+        enabled: true
+
+  balanced:
+    name: "Balanced Coverage"
+    description: "50% research, 50% industry - Good mix for professionals"
+    feeds:
+      # Core Robotics Sources
+      - url: https://robohub.org/feed/
+        name: "Robohub"
+        tags: [robotics, research, academic]
+        enabled: true
+
+      - url: https://www.therobotreport.com/feed/
+        name: "The Robot Report"
+        tags: [robotics, news, industry]
+        enabled: true
+
+      - url: https://roboticsandautomationnews.com/feed/
+        name: "Robotics & Automation News"
+        tags: [robotics, news, industry]
+        enabled: true
+
+      - url: https://spectrum.ieee.org/robotics/rss.xml
+        name: "IEEE Spectrum Robotics"
+        tags: [robotics, engineering, technical]
+        enabled: true
+
+      # Research Sources
+      - url: https://arxiv.org/rss/cs.RO
+        name: "arXiv Robotics"
+        tags: [robotics, research, arxiv, academic]
+        enabled: true
+
+      - url: https://www.science.org/action/showFeed?journalCode=scirobotics&type=etoc&feedType=rss
+        name: "Science Robotics"
+        tags: [science, research, robotics]
+        enabled: true
+
+      # Community Sources
+      - url: https://www.reddit.com/r/robotics/new.json
+        name: "Reddit r/robotics"
+        tags: [robotics, reddit, community]
+        enabled: true
+
+      - url: https://hnrss.org/newest?q=robotics
+        name: "Hacker News Robotics"
+        tags: [robotics, ai, hackernews, community]
+        enabled: true
+
+  industry:
+    name: "Industry Focus"
+    description: "20% research, 80% industry - Business applications"
+    feeds:
+      # Industry News
+      - url: https://www.roboticsbusinessreview.com/feed/
+        name: "Robotics Business Review"
+        tags: [robotics, news, business]
+        enabled: true
+
+      - url: https://www.therobotreport.com/feed/
+        name: "The Robot Report"
+        tags: [robotics, news, industry]
+        enabled: true
+
+      - url: https://roboticsandautomationnews.com/feed/
+        name: "Robotics & Automation News"
+        tags: [robotics, news, industry]
+        enabled: true
+
+      - url: https://spectrum.ieee.org/robotics/rss.xml
+        name: "IEEE Spectrum Robotics"
+        tags: [robotics, engineering, technical]
+        enabled: true
+
+      # Company Blogs
+      - url: https://blog.deepmind.com/feed/brand/deepmind/
+        name: "DeepMind Blog"
+        tags: [ai, robotics, research, deepmind]
+        enabled: true
+
+      - url: https://openai.com/blog/rss.xml
+        name: "OpenAI Blog"
+        tags: [ai, robotics, research, openai]
+        enabled: true
+
+  clean:
+    name: "Clean & Validated"
+    description: "Only feeds that pass validation tests"
+    feeds:
+      # Validated feeds only
+      - url: https://robohub.org/feed/
+        name: "Robohub"
+        tags: [robotics, research, academic]
+        enabled: true
+
+      - url: https://roboticsandautomationnews.com/feed/
+        name: "Robotics & Automation News"
+        tags: [robotics, news, industry]
+        enabled: true
+
+      - url: https://www.theguardian.com/technology/robots/rss
+        name: "The Guardian - Robots"
+        tags: [robotics, news, general]
+        enabled: true
+
+      - url: https://www.science.org/action/showFeed?journalCode=scirobotics&type=etoc&feedType=rss
+        name: "Science Robotics"
+        tags: [science, research, robotics]
+        enabled: true
+
+      - url: https://www.frontiersin.org/journals/robotics-and-ai/rss
+        name: "Frontiers in Robotics & AI"
+        tags: [robotics, research, academic]
+        enabled: true
+
+      - url: https://www.sciencedaily.com/rss/computers_math/robotics.xml
+        name: "ScienceDaily Robotics"
+        tags: [robotics, science, news]
+        enabled: true
+
+      - url: https://github.com/ros/rosdistro/commits/master.atom
+        name: "ROS Distro Commits"
+        tags: [robotics, open-source, ros, github]
+        enabled: true
+
+      - url: https://research.microsoft.com/en-us/rss/
+        name: "Microsoft Research"
+        tags: [ai, robotics, research, microsoft]
+        enabled: true
+
+      - url: https://blog.deepmind.com/feed/brand/deepmind/
+        name: "DeepMind Blog"
+        tags: [ai, robotics, research, deepmind]
+        enabled: true
+
+      - url: https://openai.com/blog/rss.xml
+        name: "OpenAI Blog"
+        tags: [ai, robotics, research, openai]
+        enabled: true
+
+      - url: https://www.reddit.com/r/robotics/new.json
+        name: "Reddit r/robotics"
+        tags: [robotics, reddit, community]
+        enabled: true
+
+      - url: https://www.reddit.com/r/ROS/new.json
+        name: "Reddit r/ROS"
+        tags: [robotics, ros, reddit, community]
+        enabled: true
+
+      - url: https://www.reddit.com/r/AutonomousVehicles/new.json
+        name: "Reddit r/AutonomousVehicles"
+        tags: [autonomous vehicles, robotics, reddit, community]
+        enabled: true
+
+      - url: https://www.reddit.com/r/drones/new.json
+        name: "Reddit r/drones"
+        tags: [drones, robotics, reddit, community]
+        enabled: true
+
+      - url: https://medium.com/feed/tag/robotics
+        name: "Medium Robotics"
+        tags: [robotics, medium, community]
+        enabled: true
+
+      - url: https://www.nasa.gov/feed/
+        name: "NASA News"
+        tags: [space, robotics, nasa, research]
+        enabled: true
+
+# Scoring weights for different source types
+scoring_weights:
+  source_bonus:
+    arxiv: 30.0
+    frontier: 35.0
+    newsletter: 25.0
+    hackernews: 20.0
+    twitter: 15.0
+    github: 18.0
+    machine_learning: 22.0
+    computer_vision: 20.0
+    transformer: 25.0
+    foundation_model: 30.0
+    research: 20.0
+    academic: 18.0
+    industry: 15.0
+    news: 12.0
+    community: 10.0
+
+  tag_bonus:
+    arxiv: 25.0
+    frontier: 30.0
+    newsletter: 20.0
+    hackernews: 15.0
+    twitter: 12.0
+    github: 15.0
+    machine_learning: 18.0
+    computer_vision: 16.0
+    transformer: 20.0
+    foundation_model: 25.0
+    research: 15.0
+    academic: 14.0
+    industry: 12.0
+    news: 10.0
+    community: 8.0
 
 # Filtering configuration
-filters:
-  # Keywords to include (content must contain at least one)
-  include_keywords:
-    - robotics
-    - robot
-    - autonomous
-    - automation
-    - AI
-    - artificial intelligence
-    - machine learning
-    - computer vision
-    - ROS
-    - drone
-    - self-driving
-    - cobot
-    - collaborative robot
-    - autonomous vehicle
-    - UAV
-    - surgical robot
-    - industrial robot
-    - service robot
-    - humanoid
-    - swarm robotics
-    - soft robotics
-    - exoskeleton
-    - prosthetic
-    - rehabilitation robot
-
-  # Keywords to exclude (content containing these will be filtered out)
-  exclude_keywords:
-    - job posting
-    - hiring
-    - career
-    - webinar
-    - advertisement
-    - sponsored
-    - sales pitch
-    - apply now
-    - remote work
-    - internship
-    - event registration
-    - conference registration
-    - workshop registration
-    - training course
-    - certification program
-
-  # Minimum content length (characters)
-  min_content_length: 100
-
-  # Maximum age of posts (days)
-  max_age_days: 7
-
-# Scoring weights for RSS content
-scoring_weights:
-  # Base score for RSS content
-  base_score: 50.0
-
-  # Bonus for content length
-  content_length_bonus: 0.1
-
-  # Bonus for recent content (newer = higher score)
-  recency_bonus: 10.0
-
-  # Bonus for trusted sources
-  source_bonus:
-    arxiv: 20.0
-    ieee: 15.0
-    mit: 15.0
-    science: 15.0
-    robohub: 10.0
-    nature: 18.0
-    cell: 18.0
-    pnas: 16.0
-    nist: 12.0
-    darpa: 12.0
-    nasa: 12.0
-
-  # Bonus for specific tags
-  tag_bonus:
-    research: 5.0
-    breakthrough: 10.0
-    academic: 5.0
-    technical: 3.0
-    autonomous: 8.0
-    medical: 7.0
-    industrial: 4.0
-    defense: 6.0
-    space: 6.0
+filtering:
+  min_score_threshold: 10.0
+  max_articles_per_source: 100
+  fetch_interval_seconds: 10 

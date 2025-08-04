@@ -245,10 +245,26 @@ class RedditScraper:
                 # Use post URL or permalink
                 url = post.get('url', post.get('permalink', ''))
                 
-                # Create summary
-                summary = selftext[:200] + "..." if len(selftext) > 200 else selftext
-                if not summary:
-                    summary = f"Reddit post from r/{post.get('subreddit', '')} with {post.get('score', 0)} upvotes"
+                # Generate intelligent summary using ArticleReader
+                try:
+                    from agent_integration.article_reader import ArticleReader
+                    article_reader = ArticleReader()
+                    
+                    # Try to get full content from the Reddit post URL
+                    post_url = f"https://reddit.com{post.get('permalink', '')}"
+                    enhanced_summary = article_reader.enhance_tweet_summary(
+                        title=title,
+                        content=content,
+                        url=post_url,
+                        topics=[post.get('subreddit', ''), 'reddit', 'community']
+                    )
+                    summary = enhanced_summary
+                except Exception as e:
+                    logger.debug(f"Could not generate intelligent summary for Reddit post: {e}")
+                    # Fallback to basic summary
+                    summary = selftext[:200] + "..." if len(selftext) > 200 else selftext
+                    if not summary:
+                        summary = f"Reddit post from r/{post.get('subreddit', '')} with {post.get('score', 0)} upvotes"
                 
                 # Create article
                 article = Article(

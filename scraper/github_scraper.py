@@ -236,6 +236,14 @@ class GitHubScraper:
         """
         articles = []
         
+        # Initialize ArticleReader for intelligent summaries
+        try:
+            from agent_integration.article_reader import ArticleReader
+            article_reader = ArticleReader()
+        except ImportError:
+            article_reader = None
+            logger.warning("ArticleReader not available, using basic summaries")
+        
         for repo in repos:
             try:
                 # Create content text
@@ -243,11 +251,30 @@ class GitHubScraper:
                 description = repo.get('description', '')
                 content = f"{name}\n\n{description}" if description else name
                 
-                # Create summary
-                stars = repo.get('stargazers_count', 0)
-                forks = repo.get('forks_count', 0)
-                language = repo.get('language', 'Unknown')
-                summary = f"GitHub repository with {stars} stars, {forks} forks, written in {language}"
+                # Generate intelligent summary using ArticleReader
+                if article_reader:
+                    try:
+                        # Try to get README content from the repository
+                        readme_url = f"{repo.get('html_url', '')}/blob/main/README.md"
+                        summary = article_reader.enhance_tweet_summary(
+                            title=name,
+                            content=content,
+                            url=repo.get('html_url', ''),
+                            topics=['github', 'open-source'] + repo.get('topics', [])
+                        )
+                    except Exception as e:
+                        logger.debug(f"Could not generate intelligent summary for {name}: {e}")
+                        # Fallback to basic summary
+                        stars = repo.get('stargazers_count', 0)
+                        forks = repo.get('forks_count', 0)
+                        language = repo.get('language', 'Unknown')
+                        summary = f"GitHub repository with {stars} stars, {forks} forks, written in {language}"
+                else:
+                    # Fallback to basic summary
+                    stars = repo.get('stargazers_count', 0)
+                    forks = repo.get('forks_count', 0)
+                    language = repo.get('language', 'Unknown')
+                    summary = f"GitHub repository with {stars} stars, {forks} forks, written in {language}"
                 
                 # Create article
                 article = Article(

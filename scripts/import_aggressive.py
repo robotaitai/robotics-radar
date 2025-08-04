@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-Multi-source historical data import for Robotics Radar.
-Imports historical data from all configured sources with 90-day simulation.
+Aggressive historical data import for Robotics Radar.
+Temporarily relaxes filtering to import more historical content.
 """
 
 import sys
@@ -72,20 +72,17 @@ def get_active_sources(feeds):
     
     return list(sources)
 
-def simulate_90_days_import(scraper, source, days_back=90):
-    """Simulate importing data from the past 90 days by running multiple fetch cycles."""
-    print(f"🔄 Simulating {days_back} days of data for {source}...")
+def aggressive_import(scraper, source, cycles=50):
+    """Run aggressive import with many cycles to get more content."""
+    print(f"🚀 Running aggressive import for {source} ({cycles} cycles)...")
     
     total_imported = 0
     total_processed = 0
     
-    # Run multiple fetch cycles to simulate historical data
-    # Each cycle represents a "day" of data
-    cycles = min(days_back, 30)  # Limit to 30 cycles to avoid overwhelming
-    
     for cycle in range(cycles):
         try:
-            print(f"  📅 Cycle {cycle + 1}/{cycles} (simulating day {cycle + 1})...")
+            if cycle % 10 == 0:
+                print(f"  📅 Cycle {cycle + 1}/{cycles}...")
             
             # Run fetch cycle for this source
             result = scraper.fetch_from_source(source)
@@ -97,10 +94,10 @@ def simulate_90_days_import(scraper, source, days_back=90):
             total_processed += processed
             
             if imported > 0:
-                print(f"    ✅ Found {imported} new articles")
+                print(f"    ✅ Cycle {cycle + 1}: Found {imported} new articles")
             
             # Small delay between cycles
-            time.sleep(2)
+            time.sleep(1)
             
         except Exception as e:
             print(f"    ❌ Error in cycle {cycle + 1}: {e}")
@@ -109,11 +106,11 @@ def simulate_90_days_import(scraper, source, days_back=90):
     return total_imported, total_processed
 
 def main():
-    """Import historical data from all configured sources."""
-    print("🤖 Robotics Radar - 90-Day Historical Data Import")
+    """Run aggressive historical data import."""
+    print("🤖 Robotics Radar - Aggressive Historical Data Import")
     print("=" * 70)
-    print("📅 Simulating 90 days of data from all configured sources...")
-    print("📊 This will add comprehensive historical content to your database!")
+    print("🚀 Running aggressive import to maximize content collection...")
+    print("⚠️  This will run many fetch cycles to get maximum content!")
     print()
     
     try:
@@ -147,25 +144,26 @@ def main():
         
         print("\n" + "="*70)
         
-        # Import from each active source with 90-day simulation
+        # Import from each active source aggressively
         for source in active_sources:
             if source not in status or not status[source]['enabled']:
                 print(f"⏭️  Skipping {source} (disabled or not available)")
                 continue
                 
-            print(f"\n🔄 Importing 90 days of data from {status[source]['name']}...")
+            print(f"\n🚀 Running aggressive import from {status[source]['name']}...")
             
             try:
-                # Simulate 90 days of data
-                imported, processed = simulate_90_days_import(scraper, source, days_back=90)
+                # Run aggressive import (50 cycles per source)
+                cycles = 50 if source == 'rss' else 30  # More cycles for RSS
+                imported, processed = aggressive_import(scraper, source, cycles=cycles)
                 
                 total_imported += imported
                 total_processed += processed
                 
-                print(f"✅ {status[source]['name']}: {imported}/{processed} articles imported (90-day simulation)")
+                print(f"✅ {status[source]['name']}: {imported}/{processed} articles imported (aggressive)")
                 
                 # Small delay between sources
-                time.sleep(5)
+                time.sleep(3)
                 
             except Exception as e:
                 print(f"❌ Error importing from {status[source]['name']}: {e}")
@@ -176,7 +174,7 @@ def main():
         actual_new_articles = final_analytics['total_articles'] - initial_analytics['total_articles']
         
         print("\n" + "="*70)
-        print(f"🎉 90-day historical import completed successfully!")
+        print(f"🎉 Aggressive import completed successfully!")
         print(f"📊 Results: {total_imported}/{total_processed} articles processed")
         print(f"📈 Success rate: {(total_imported/total_processed*100):.1f}%" if total_processed > 0 else "📈 Success rate: N/A")
         print(f"🗄️  Database growth: {initial_analytics['total_articles']} → {final_analytics['total_articles']} (+{actual_new_articles})")
@@ -184,7 +182,7 @@ def main():
         print(f"⭐ Average score: {final_analytics['avg_score']:.2f}")
         
         if actual_new_articles > 0:
-            print(f"\n🎉 Your database now contains {actual_new_articles} new articles from 90-day simulation!")
+            print(f"\n🎉 Your database now contains {actual_new_articles} new articles from aggressive import!")
             print("💡 You should start receiving more diverse Telegram messages.")
             print("🚀 The dashboard should now show comprehensive analytics.")
         else:
@@ -193,12 +191,14 @@ def main():
             print("   • Articles already exist in your database")
             print("   • Sources are rate-limited")
             print("   • Filtering is too strict")
+            print("   • Sources don't have much historical content")
         
         # Show source breakdown
         print(f"\n📋 Source Breakdown:")
         for source in active_sources:
             if source in status and status[source]['enabled']:
-                print(f"  • {status[source]['name']}: Active (90-day simulation)")
+                cycles = 50 if source == 'rss' else 30
+                print(f"  • {status[source]['name']}: Active (aggressive - {cycles} cycles)")
             else:
                 print(f"  • {source}: Disabled")
         
@@ -208,7 +208,7 @@ def main():
         print(f"  • Total feeds configured: {len(feeds)}")
         print(f"  • Enabled feeds: {len(enabled_feeds)}")
         print(f"  • Disabled feeds: {len(feeds) - len(enabled_feeds)}")
-        print(f"  • 90-day simulation cycles: 30 per source")
+        print(f"  • Aggressive cycles: 30-50 per source")
         
     except KeyboardInterrupt:
         print("\n⚠️  Import interrupted by user")

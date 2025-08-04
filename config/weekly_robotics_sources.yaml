@@ -1,0 +1,59 @@
+description: High-quality robotics sources extracted from Weekly Robotics issues
+feeds:
+- enabled: true
+  name: Weekly Robotics - eurobot.org
+  tags:
+  - weekly-robotics
+  - robotics
+  url: https://eurobot.org/feed
+  weight: 10
+- enabled: true
+  name: Weekly Robotics - events.linuxfoundation.org
+  tags:
+  - weekly-robotics
+  - robotics
+  url: https://events.linuxfoundation.org/feed
+  weight: 10
+- enabled: true
+  name: Weekly Robotics - hackaday.com
+  tags:
+  - weekly-robotics
+  - robotics
+  url: https://hackaday.com/feed
+  weight: 10
+- enabled: true
+  name: Weekly Robotics - spectrum.ieee.org
+  tags:
+  - weekly-robotics
+  - robotics
+  url: https://spectrum.ieee.org/rss
+  weight: 10
+- enabled: true
+  name: Weekly Robotics - 2024.oshwa.org
+  tags:
+  - weekly-robotics
+  - robotics
+  url: https://2024.oshwa.org/feed
+  weight: 10
+- enabled: true
+  name: Weekly Robotics - roboticsconference.org
+  tags:
+  - weekly-robotics
+  - robotics
+  url: https://roboticsconference.org/atom
+  weight: 10
+- enabled: true
+  name: Weekly Robotics - cppcon.org
+  tags:
+  - weekly-robotics
+  - robotics
+  url: https://cppcon.org/feed
+  weight: 10
+- enabled: true
+  name: Weekly Robotics - 2025.robocup.org
+  tags:
+  - weekly-robotics
+  - robotics
+  url: https://2025.robocup.org/feed
+  weight: 10
+name: Weekly Robotics Sources

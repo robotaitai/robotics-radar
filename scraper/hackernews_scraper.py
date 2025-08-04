@@ -237,8 +237,27 @@ class HackerNewsScraper:
                 title = story.get('title', '')
                 url = story.get('url', '')
                 
-                # Create summary
-                summary = f"HN story with {story.get('score', 0)} points and {story.get('descendants', 0)} comments"
+                # Generate intelligent summary using ArticleReader
+                try:
+                    from agent_integration.article_reader import ArticleReader
+                    article_reader = ArticleReader()
+                    
+                    # Try to get full content from the story URL
+                    if url and url.startswith('http'):
+                        enhanced_summary = article_reader.enhance_tweet_summary(
+                            title=title,
+                            content=title,
+                            url=url,
+                            topics=['hackernews', 'tech', 'robotics']
+                        )
+                        summary = enhanced_summary
+                    else:
+                        # Fallback for text-only posts
+                        summary = f"HN story with {story.get('score', 0)} points and {story.get('descendants', 0)} comments"
+                except Exception as e:
+                    logger.debug(f"Could not generate intelligent summary for HN story: {e}")
+                    # Fallback to basic summary
+                    summary = f"HN story with {story.get('score', 0)} points and {story.get('descendants', 0)} comments"
                 
                 # Create article
                 article = Article(

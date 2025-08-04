@@ -67,6 +67,9 @@ class AnalyticsDashboard:
         with col4:
             self._show_content_analysis()
         
+        # Review status section
+        self._show_review_status()
+        
         # Category and keyword analytics sections
         self._show_category_analytics()
         self._show_keyword_analytics()
@@ -725,6 +728,102 @@ class AnalyticsDashboard:
                 
         except Exception as e:
             st.error(f"Error loading keyword analytics: {e}")
+    
+    def _show_review_status(self):
+        """Show review status for articles."""
+        st.header("📋 Review Status")
+        
+        try:
+            # Get articles with review status
+            review_data = self.db.get_articles_with_review_status()
+            
+            if not review_data:
+                st.info("No articles with review status available")
+                return
+            
+            # Create DataFrame
+            df_reviews = pd.DataFrame(review_data)
+            
+            if not df_reviews.empty:
+                # Add status indicators
+                df_reviews['status_emoji'] = df_reviews['review_status'].map({
+                    'pending': '⏳',
+                    'approved': '✅',
+                    'rejected': '❌',
+                    'edited': '✏️',
+                    'skipped': '⏭️'
+                }).fillna('❓')
+                
+                # Show review statistics
+                col1, col2, col3, col4 = st.columns(4)
+                
+                with col1:
+                    pending_count = len(df_reviews[df_reviews['review_status'] == 'pending'])
+                    st.metric("⏳ Pending Review", pending_count)
+                
+                with col2:
+                    approved_count = len(df_reviews[df_reviews['review_status'] == 'approved'])
+                    st.metric("✅ Approved", approved_count)
+                
+                with col3:
+                    rejected_count = len(df_reviews[df_reviews['review_status'] == 'rejected'])
+                    st.metric("❌ Rejected", rejected_count)
+                
+                with col4:
+                    total_reviews = len(df_reviews)
+                    st.metric("📊 Total Reviews", total_reviews)
+                
+                # Show recent reviews
+                st.subheader("Recent Review Activity")
+                
+                # Sort by review date (most recent first)
+                df_reviews_sorted = df_reviews.sort_values('review_date', ascending=False)
+                
+                # Display recent reviews
+                for _, row in df_reviews_sorted.head(10).iterrows():
+                    with st.container():
+                        col1, col2, col3 = st.columns([1, 4, 1])
+                        
+                        with col1:
+                            st.write(f"{row['status_emoji']} **{row['review_status'].title()}**")
+                        
+                        with col2:
+                            title = row['text'][:100] + "..." if len(row['text']) > 100 else row['text']
+                            st.write(f"**{title}**")
+                            st.caption(f"Score: {row['score']:.1f} | {row['author_name']}")
+                        
+                        with col3:
+                            st.caption(f"{row['review_date']}")
+                        
+                        st.divider()
+                
+                # Show review trends
+                st.subheader("Review Trends")
+                
+                # Group by date and status
+                df_reviews['review_date_only'] = pd.to_datetime(df_reviews['review_date']).dt.date
+                review_trends = df_reviews.groupby(['review_date_only', 'review_status']).size().unstack(fill_value=0)
+                
+                if not review_trends.empty:
+                    fig = px.line(
+                        review_trends,
+                        title="Review Activity Over Time",
+                        labels={'value': 'Number of Reviews', 'review_date_only': 'Date'}
+                    )
+                    
+                    fig.update_layout(
+                        xaxis_title="Date",
+                        yaxis_title="Number of Reviews",
+                        showlegend=True
+                    )
+                    
+                    st.plotly_chart(fig, use_container_width=True)
+                
+            else:
+                st.info("No review data available")
+                
+        except Exception as e:
+            st.error(f"Error loading review status: {e}")
     
     def _get_available_topics(self) -> List[str]:
         """Get available topics for filtering.

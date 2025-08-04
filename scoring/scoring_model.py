@@ -106,6 +106,10 @@ class ScoringModel:
             replies = tweet_data.get('replies', 0)
             author_followers = tweet_data.get('author_followers', 0)
             content_length = len(tweet_data.get('text', ''))
+            created_at = tweet_data.get('created_at')
+            
+            # Calculate recency bonus
+            recency_bonus = self._calculate_recency_bonus(created_at)
             
             # For RSS articles (0 likes/retweets), give them a base score
             if likes == 0 and retweets == 0:
@@ -113,7 +117,7 @@ class ScoringModel:
                 import math
                 author_score = math.log10(max(author_followers, 1)) * self.weights.author_followers
                 content_score = min(content_length / 280, 1.0) * self.weights.content_length
-                base_score = 100.0 + author_score + content_score  # Base 100 for RSS articles
+                base_score = 100.0 + author_score + content_score + recency_bonus  # Base 100 for RSS articles
             else:
                 # Calculate engagement score for social media posts
                 engagement_score = (
@@ -129,15 +133,67 @@ class ScoringModel:
                 # Calculate content quality score
                 content_score = min(content_length / 280, 1.0) * self.weights.content_length
                 
-                base_score = engagement_score + author_score + content_score
+                base_score = engagement_score + author_score + content_score + recency_bonus
             
             logger.debug(f"Base score calculation: author={author_score:.2f}, "
-                        f"content={content_score:.2f}, total={base_score:.2f}")
+                        f"content={content_score:.2f}, recency={recency_bonus:.2f}, total={base_score:.2f}")
             
             return base_score
             
         except Exception as e:
             logger.error(f"Error calculating base score: {e}")
+            return 0.0
+    
+    def _calculate_recency_bonus(self, created_at) -> float:
+        """Calculate recency bonus for recently published articles.
+        
+        Args:
+            created_at: Article creation timestamp
+            
+        Returns:
+            Recency bonus score
+        """
+        try:
+            from datetime import datetime, timezone
+            
+            if not created_at:
+                return 0.0
+            
+            # Convert to datetime if it's a string
+            if isinstance(created_at, str):
+                created_at = datetime.fromisoformat(created_at.replace('Z', '+00:00'))
+            
+            # Ensure created_at has timezone info
+            if created_at.tzinfo is None:
+                created_at = created_at.replace(tzinfo=timezone.utc)
+            
+            # Get current time
+            now = datetime.now(timezone.utc)
+            
+            # Calculate hours since publication
+            time_diff = now - created_at
+            hours_ago = time_diff.total_seconds() / 3600
+            
+            # Recency bonus calculation:
+            # - Articles published in last 1 hour: +50 points
+            # - Articles published in last 6 hours: +30 points  
+            # - Articles published in last 24 hours: +15 points
+            # - Articles published in last 7 days: +5 points
+            # - Older articles: no bonus
+            
+            if hours_ago <= 1:
+                return 50.0
+            elif hours_ago <= 6:
+                return 30.0
+            elif hours_ago <= 24:
+                return 15.0
+            elif hours_ago <= 168:  # 7 days
+                return 5.0
+            else:
+                return 0.0
+                
+        except Exception as e:
+            logger.error(f"Error calculating recency bonus: {e}")
             return 0.0
     
     def apply_feedback_adjustment(self, base_score: float, feedback_data: Dict[str, int]) -> float:

@@ -1,5 +1,5 @@
 """
-Offline Article Reader Agent for Robotics Radar.
+Enhanced Offline Article Reader Agent for Robotics Radar.
 Reads article content from URLs and generates intelligent summaries.
 """
 
@@ -23,7 +23,7 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 class ArticleReader:
-    """Offline agent for reading and summarizing articles."""
+    """Enhanced offline agent for reading and summarizing articles."""
     
     def __init__(self):
         """Initialize the article reader."""
@@ -39,19 +39,12 @@ class ArticleReader:
         })
         
     def read_article(self, url: str) -> Optional[Dict]:
-        """Read and analyze an article from a URL.
-        
-        Args:
-            url: Article URL to read
-            
-        Returns:
-            Dictionary with article content and analysis, or None if failed
-        """
+        """Read and analyze an article from a URL."""
         try:
             logger.info(f"Reading article: {url}")
             
             # Fetch the article
-            response = self.session.get(url, timeout=10)
+            response = self.session.get(url, timeout=15)
             response.raise_for_status()
             
             # Parse HTML
@@ -78,7 +71,8 @@ class ArticleReader:
                 'insights': insights,
                 'word_count': len(article_data.get('content', '').split()),
                 'topics': article_data.get('topics', []),
-                'source': self._extract_source(url)
+                'source': self._extract_source(url),
+                'meta_description': article_data.get('meta_description', '')
             }
             
         except Exception as e:
@@ -86,147 +80,241 @@ class ArticleReader:
             return None
     
     def _extract_article_content(self, soup: BeautifulSoup, url: str) -> Optional[Dict]:
-        """Extract article content from HTML.
-        
-        Args:
-            soup: BeautifulSoup object
-            url: Article URL for context
-            
-        Returns:
-            Dictionary with extracted content
-        """
+        """Extract article content with multiple fallback methods."""
         try:
-            # Remove script and style elements
-            for script in soup(["script", "style", "nav", "header", "footer", "aside"]):
-                script.decompose()
+            # Method 1: Try specialized extraction patterns
+            content = self._extract_with_patterns(soup)
+            
+            # Method 2: Try meta description as fallback
+            if not content or len(content) < 200:
+                meta_desc = self._extract_meta_description(soup)
+                if meta_desc and len(meta_desc) > 50:
+                    logger.info(f"Using meta description as fallback for {url}")
+                    content = meta_desc
+            
+            # Method 3: Try newspaper3k-style extraction
+            if not content or len(content) < 200:
+                content = self._extract_newspaper_style(soup)
             
             # Extract title
-            title = ""
-            title_selectors = [
-                'h1',
-                'title',
-                '[class*="title"]',
-                '[class*="headline"]',
-                'h1[class*="title"]',
-                'h1[class*="headline"]'
-            ]
+            title = self._extract_title(soup)
             
-            for selector in title_selectors:
-                title_elem = soup.select_one(selector)
-                if title_elem:
-                    title = title_elem.get_text().strip()
-                    break
+            # Extract meta description
+            meta_description = self._extract_meta_description(soup)
             
-            # Extract main content
-            content = ""
-            content_selectors = [
-                'article',
-                '[class*="content"]',
-                '[class*="article"]',
-                '[class*="post"]',
-                '[class*="entry"]',
-                'main',
-                '.post-content',
-                '.article-content',
-                '.entry-content'
-            ]
+            # Clean and validate content
+            if content and len(content) > 100:
+                clean_content = self._clean_text_enhanced(content)
+                return {
+                    'title': title,
+                    'content': clean_content,
+                    'meta_description': meta_description,
+                    'topics': self._extract_topics(clean_content)
+                }
             
-            for selector in content_selectors:
-                content_elem = soup.select_one(selector)
-                if content_elem:
-                    # Get paragraphs
-                    paragraphs = content_elem.find_all(['p', 'h2', 'h3', 'h4', 'h5', 'h6'])
-                    content = ' '.join([p.get_text().strip() for p in paragraphs if p.get_text().strip()])
-                    break
-            
-            # If no specific content area found, try body
-            if not content:
-                body = soup.find('body')
-                if body:
-                    paragraphs = body.find_all('p')
-                    content = ' '.join([p.get_text().strip() for p in paragraphs if p.get_text().strip()])
-            
-            # Clean up content
-            content = self._clean_text(content)
-            
-            if not content or len(content) < 100:
-                return None
-            
-            # Extract topics
-            topics = self.keyword_extractor.extract_topics(f"{title} {content}")
-            
-            return {
-                'title': title,
-                'content': content,
-                'topics': topics
-            }
+            logger.warning(f"Content extraction failed for {url}")
+            return None
             
         except Exception as e:
-            logger.error(f"Error extracting content: {e}")
+            logger.error(f"Error in content extraction: {e}")
             return None
     
-    def _clean_text(self, text: str) -> str:
-        """Clean and normalize text.
+    def _extract_with_patterns(self, soup: BeautifulSoup) -> str:
+        """Extract content using common article patterns."""
+        content_parts = []
         
-        Args:
-            text: Raw text to clean
+        # Remove unwanted elements
+        for element in soup(['script', 'style', 'nav', 'header', 'footer', 'aside', 'form', 'button']):
+            element.decompose()
+        
+        # Remove elements with unwanted classes/IDs
+        unwanted_patterns = [
+            'comment', 'related', 'sidebar', 'advertisement', 'social', 'share',
+            'menu', 'navigation', 'footer', 'header', 'cookie', 'popup'
+        ]
+        
+        for pattern in unwanted_patterns:
+            for element in soup.find_all(attrs={'class': re.compile(pattern, re.I)}):
+                element.decompose()
+            for element in soup.find_all(attrs={'id': re.compile(pattern, re.I)}):
+                element.decompose()
+        
+        # Try article-specific selectors
+        selectors = [
+            'article',
+            '[class*="article"]',
+            '[class*="content"]',
+            '[class*="post"]',
+            '[class*="entry"]',
+            'main',
+            '.post-content',
+            '.entry-content',
+            '.article-content',
+            '.story-content'
+        ]
+        
+        for selector in selectors:
+            elements = soup.select(selector)
+            for element in elements:
+                text = element.get_text(separator=' ', strip=True)
+                if len(text) > 200:
+                    content_parts.append(text)
+        
+        # If no article-specific content found, try body content
+        if not content_parts:
+            body = soup.find('body')
+            if body:
+                # Get all text elements
+                for tag in body.find_all(['p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'li', 'blockquote']):
+                    text = tag.get_text(strip=True)
+                    if len(text) > 20 and not self._is_metadata_text(text):
+                        content_parts.append(text)
+        
+        return ' '.join(content_parts)
+    
+    def _extract_newspaper_style(self, soup: BeautifulSoup) -> str:
+        """Extract content using newspaper3k-style heuristics."""
+        content_parts = []
+        
+        # Score paragraphs by various heuristics
+        paragraphs = soup.find_all(['p', 'div'])
+        scored_paragraphs = []
+        
+        for p in paragraphs:
+            text = p.get_text(strip=True)
+            if len(text) < 50:
+                continue
+                
+            score = 0
             
-        Returns:
-            Cleaned text
-        """
-        if not text:
-            return ""
+            # Length bonus
+            score += min(len(text) / 10, 10)
+            
+            # Link density penalty
+            links = p.find_all('a')
+            if links:
+                link_density = len(links) / len(text.split())
+                score -= link_density * 50
+            
+            # Class/ID bonuses
+            if p.get('class'):
+                class_text = ' '.join(p.get('class')).lower()
+                if any(word in class_text for word in ['content', 'article', 'post', 'text']):
+                    score += 20
+            
+            # Position bonus (earlier = higher)
+            score += max(0, 10 - len(scored_paragraphs))
+            
+            scored_paragraphs.append((text, score))
+        
+        # Sort by score and take top paragraphs
+        scored_paragraphs.sort(key=lambda x: x[1], reverse=True)
+        
+        for text, score in scored_paragraphs[:10]:
+            if score > 5:
+                content_parts.append(text)
+        
+        return ' '.join(content_parts)
+    
+    def _extract_title(self, soup: BeautifulSoup) -> str:
+        """Extract article title."""
+        # Try multiple title sources
+        title_selectors = [
+            'h1',
+            'title',
+            '[class*="title"]',
+            '[class*="headline"]',
+            'meta[property="og:title"]',
+            'meta[name="twitter:title"]'
+        ]
+        
+        for selector in title_selectors:
+            element = soup.select_one(selector)
+            if element:
+                title = element.get_text(strip=True) if element.name != 'meta' else element.get('content', '')
+                if title and len(title) > 10:
+                    return title
+        
+        return ""
+    
+    def _extract_meta_description(self, soup: BeautifulSoup) -> str:
+        """Extract meta description."""
+        meta_selectors = [
+            'meta[name="description"]',
+            'meta[property="og:description"]',
+            'meta[name="twitter:description"]'
+        ]
+        
+        for selector in meta_selectors:
+            element = soup.select_one(selector)
+            if element:
+                desc = element.get('content', '')
+                if desc and len(desc) > 20:
+                    return desc
+        
+        return ""
+    
+    def _is_metadata_text(self, text: str) -> bool:
+        """Check if text is metadata rather than content."""
+        metadata_patterns = [
+            r'^Source:', r'^Credit:', r'^Image:', r'^Photo:', r'^Picture:',
+            r'^A computer-generated', r'^AI-generated', r'^This image shows',
+            r'^The image depicts', r'^Click here', r'^Read more',
+            r'^Share this', r'^Follow us', r'^Subscribe', r'^Newsletter'
+        ]
+        
+        text_lower = text.lower()
+        return any(re.search(pattern, text_lower) for pattern in metadata_patterns)
+    
+    def _clean_text_enhanced(self, text: str) -> str:
+        """Enhanced text cleaning that preserves important punctuation."""
+        # Remove HTML tags
+        text = re.sub(r'<[^>]+>', '', text)
         
         # Remove extra whitespace
         text = re.sub(r'\s+', ' ', text)
         
-        # Remove special characters that might cause issues
-        text = re.sub(r'[^\w\s\.\,\!\?\;\:\-\(\)]', '', text)
+        # Remove common metadata patterns
+        text = re.sub(r'Source:\s*[^.]*\.', '', text)
+        text = re.sub(r'Credit:\s*[^.]*\.', '', text)
+        text = re.sub(r'Image:\s*[^.]*\.', '', text)
         
-        return text.strip()
+        # Preserve Unicode characters and punctuation
+        text = text.strip()
+        
+        return text
     
     def _generate_intelligent_summary(self, article_data: Dict) -> str:
-        """Generate an intelligent summary of the article.
-        
-        Args:
-            article_data: Article content and metadata
-            
-        Returns:
-            Generated summary
-        """
+        """Generate intelligent summary using advanced techniques."""
         try:
-            title = article_data.get('title', '')
             content = article_data.get('content', '')
-            topics = article_data.get('topics', [])
+            title = article_data.get('title', '')
+            meta_description = article_data.get('meta_description', '')
             
-            # Clean content first
-            clean_content = self._clean_text(content)
+            if not content:
+                return f"📰 {title[:150]}..."
             
             # Split content into sentences
-            sentences = re.split(r'[.!?]+', clean_content)
-            sentences = [s.strip() for s in sentences if s.strip()]
+            sentences = re.split(r'[.!?]+', content)
+            sentences = [s.strip() for s in sentences if s.strip() and len(s.strip()) > 20]
             
-            # Score sentences based on relevance and filter out metadata
+            if len(sentences) < 3:
+                return f"📰 {title[:150]}..."
+            
+            # Score sentences based on relevance
             scored_sentences = []
-            for sentence in sentences[:20]:  # Limit to first 20 sentences
-                # Skip metadata sentences
-                if self._is_metadata_sentence(sentence):
-                    continue
-                
-                # Skip very short sentences
-                if len(sentence) < 20:
-                    continue
-                
+            for sentence in sentences[:10]:  # Look at first 10 sentences
                 score = 0
                 
-                # Score based on topic keywords
-                for topic in topics:
-                    if topic.lower() in sentence.lower():
+                # Score based on robotics keywords
+                robotics_keywords = ['robot', 'robotics', 'ai', 'artificial intelligence', 'automation', 
+                                   'machine learning', 'computer vision', 'autonomous', 'sensor', 'algorithm']
+                for keyword in robotics_keywords:
+                    if keyword.lower() in sentence.lower():
                         score += 2
                 
                 # Score based on technical terms
-                tech_terms = ['robot', 'robotics', 'AI', 'artificial intelligence', 'automation', 
-                            'machine learning', 'computer vision', 'autonomous', 'sensor', 'algorithm']
+                tech_terms = ['system', 'technology', 'development', 'research', 'study', 'experiment']
                 for term in tech_terms:
                     if term.lower() in sentence.lower():
                         score += 1
@@ -244,183 +332,121 @@ class ArticleReader:
             # Generate summary
             if top_sentences:
                 summary = '. '.join(top_sentences) + '.'
-                summary = summary[:180] + "..." if len(summary) > 180 else summary
                 
-                # Add context based on title
-                if "breakthrough" in title.lower() or "new" in title.lower():
-                    summary = f"🚀 {summary}"
-                elif "research" in title.lower() or "study" in title.lower():
-                    summary = f"🔬 {summary}"
-                elif "announcement" in title.lower() or "launch" in title.lower():
-                    summary = f"📢 {summary}"
-                else:
-                    summary = f"📰 {summary}"
+                # Truncate if too long
+                if len(summary) > 200:
+                    summary = summary[:200] + "..."
+                
+                # Add emoji based on content
+                summary = self._add_content_emoji(summary, title)
                 
                 return summary
             else:
-                return f"📰 {title[:150]}..."
-                
+                # Fallback to meta description
+                if meta_description and len(meta_description) > 50:
+                    return f"📰 {meta_description[:200]}..."
+                else:
+                    return f"📰 {title[:150]}..."
+                    
         except Exception as e:
-            logger.error(f"Error generating summary: {e}")
+            logger.error(f"Error generating intelligent summary: {e}")
             return f"📰 {title[:150]}..."
     
-    def _is_metadata_sentence(self, sentence: str) -> bool:
-        """Check if a sentence is metadata rather than content.
+    def _add_content_emoji(self, summary: str, title: str) -> str:
+        """Add appropriate emoji based on content."""
+        text_lower = (summary + ' ' + title).lower()
         
-        Args:
-            sentence: Sentence to check
-            
-        Returns:
-            True if it's metadata
-        """
-        metadata_patterns = [
-            r'^Source:',
-            r'^Credit:',
-            r'^Image:',
-            r'^<img',
-            r'^A computer-generated',
-            r'^AI-generated',
-            r'^This image shows',
-            r'^The image depicts',
-            r'^Photo:',
-            r'^Picture:',
-            r'^Source\s*:',
-            r'^Credit\s*:',
-            r'^Image\s*:',
-            r'^Photo\s*:',
-            r'^Picture\s*:'
-        ]
-        
-        sentence_lower = sentence.lower()
-        
-        for pattern in metadata_patterns:
-            if re.search(pattern, sentence_lower):
-                return True
-        
-        return False
+        if any(word in text_lower for word in ['breakthrough', 'novel', 'revolutionary', 'first']):
+            return f"🚀 {summary}"
+        elif any(word in text_lower for word in ['research', 'study', 'experiment', 'paper']):
+            return f"🔬 {summary}"
+        elif any(word in text_lower for word in ['announcement', 'launch', 'release']):
+            return f"📢 {summary}"
+        elif any(word in text_lower for word in ['improvement', 'better', 'faster', 'enhanced']):
+            return f"⚡ {summary}"
+        else:
+            return f"📰 {summary}"
     
     def _extract_key_insights(self, article_data: Dict) -> List[str]:
-        """Extract key insights from the article.
+        """Extract key insights from article content."""
+        insights = []
+        content = article_data.get('content', '')
         
-        Args:
-            article_data: Article content and metadata
-            
-        Returns:
-            List of key insights
-        """
+        if not content:
+            return insights
+        
+        # Split into sentences
+        sentences = re.split(r'[.!?]+', content)
+        sentences = [s.strip() for s in sentences if s.strip() and len(s.strip()) > 20]
+        
+        # Look for key phrases that indicate insights
+        insight_patterns = [
+            r'([^.]*?(?:breakthrough|innovation|discovery|advancement|milestone)[^.]*)',
+            r'([^.]*?(?:enables|allows|improves|enhances|reduces)[^.]*)',
+            r'([^.]*?(?:first time|never before|revolutionary|game-changing)[^.]*)',
+            r'([^.]*?(?:cost|efficiency|accuracy|speed|performance)[^.]*)'
+        ]
+        
+        for pattern in insight_patterns:
+            matches = re.findall(pattern, content, re.IGNORECASE)
+            for match in matches[:2]:  # Limit to 2 matches per pattern
+                clean_match = match.strip()
+                if len(clean_match) > 20 and len(clean_match) < 200:
+                    insights.append(clean_match)
+        
+        return insights[:5]  # Return top 5 insights
+    
+    def _extract_topics(self, content: str) -> List[str]:
+        """Extract topics from content."""
         try:
-            content = article_data.get('content', '')
-            insights = []
-            
-            # Look for key phrases that indicate insights
-            insight_patterns = [
-                r'([^.]*?(?:breakthrough|innovation|discovery|advancement|milestone)[^.]*)',
-                r'([^.]*?(?:enables|allows|improves|enhances|reduces)[^.]*)',
-                r'([^.]*?(?:first time|never before|revolutionary|game-changing)[^.]*)',
-                r'([^.]*?(?:cost|efficiency|accuracy|speed|performance)[^.]*)'
-            ]
-            
-            for pattern in insight_patterns:
-                matches = re.findall(pattern, content, re.IGNORECASE)
-                for match in matches[:2]:  # Limit to 2 matches per pattern
-                    clean_match = match.strip()
-                    if len(clean_match) > 20 and len(clean_match) < 200:
-                        insights.append(clean_match)
-            
-            return insights[:5]  # Return top 5 insights
-            
+            return self.keyword_extractor.extract_topics(content)
         except Exception as e:
-            logger.error(f"Error extracting insights: {e}")
+            logger.error(f"Error extracting topics: {e}")
             return []
     
     def _extract_source(self, url: str) -> str:
-        """Extract source name from URL.
-        
-        Args:
-            url: Article URL
-            
-        Returns:
-            Source name
-        """
+        """Extract source domain from URL."""
         try:
-            domain = urlparse(url).netloc
-            source = domain.replace('www.', '').split('.')[0]
-            return source.title()
-        except:
-            return "Unknown"
+            parsed = urlparse(url)
+            domain = parsed.netloc.replace('www.', '')
+            return domain
+        except Exception:
+            return "unknown"
     
     def enhance_tweet_summary(self, tweet) -> str:
-        """Enhance a tweet's summary by reading the actual article.
-        
-        Args:
-            tweet: Tweet object with URL
-            
-        Returns:
-            Enhanced summary
-        """
+        """Legacy method for backward compatibility."""
         try:
-            # Read the article
-            article_data = self.read_article(tweet.url)
+            # Extract URL from tweet
+            url = getattr(tweet, 'url', None)
+            if not url:
+                return getattr(tweet, 'text', '')[:150] + "..."
             
-            if article_data and article_data.get('summary'):
+            # Read article and generate enhanced summary
+            article_data = self.read_article(url)
+            if article_data:
                 return article_data['summary']
             else:
-                # Fallback to original summary
-                return tweet.summary or "No summary available"
+                return getattr(tweet, 'text', '')[:150] + "..."
                 
         except Exception as e:
-            # Don't log errors for blocked requests - this is expected
-            if "403" not in str(e) and "429" not in str(e):
-                logger.debug(f"Error enhancing summary for {tweet.url}: {e}")
-            return tweet.summary or "No summary available"
+            logger.error(f"Error enhancing tweet summary: {e}")
+            return getattr(tweet, 'text', '')[:150] + "..."
     
     def batch_enhance_summaries(self, tweets: List) -> List:
-        """Enhance summaries for a batch of tweets.
-        
-        Args:
-            tweets: List of tweet objects
-            
-        Returns:
-            List of tweets with enhanced summaries
-        """
+        """Legacy method for batch processing."""
         enhanced_tweets = []
         
         for tweet in tweets:
             try:
-                # Add small delay to be respectful to servers
+                enhanced_summary = self.enhance_tweet_summary(tweet)
+                tweet.enhanced_summary = enhanced_summary
+                enhanced_tweets.append(tweet)
+                
+                # Rate limiting
                 time.sleep(1)
                 
-                enhanced_summary = self.enhance_tweet_summary(tweet)
-                tweet.summary = enhanced_summary
-                enhanced_tweets.append(tweet)
-                
             except Exception as e:
-                logger.error(f"Error enhancing tweet {tweet.id}: {e}")
+                logger.error(f"Error enhancing tweet {getattr(tweet, 'id', 'unknown')}: {e}")
                 enhanced_tweets.append(tweet)
         
-        return enhanced_tweets
-
-
-def main():
-    """Test the article reader."""
-    reader = ArticleReader()
-    
-    # Test with a sample URL
-    test_url = "https://www.therobotreport.com/beyond-assembly-line-swarm-robotics-emerge/"
-    
-    print(f"Testing article reader with: {test_url}")
-    result = reader.read_article(test_url)
-    
-    if result:
-        print(f"✅ Successfully read article")
-        print(f"Title: {result['title']}")
-        print(f"Summary: {result['summary']}")
-        print(f"Word count: {result['word_count']}")
-        print(f"Topics: {result['topics']}")
-        print(f"Insights: {result['insights'][:2]}")
-    else:
-        print("❌ Failed to read article")
-
-
-if __name__ == "__main__":
-    main() 
+        return enhanced_tweets 

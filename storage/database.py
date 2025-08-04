@@ -785,6 +785,127 @@ class DatabaseManager:
             logger.error(f"Error deleting duplicate URLs: {e}")
             return 0
     
+    def get_articles_with_review_status(self) -> List[Dict]:
+        """Get articles with their review status from feedback.
+        
+        Returns:
+            List of articles with review status
+        """
+        try:
+            with self.get_connection() as conn:
+                cursor = conn.cursor()
+                
+                # Get articles with review status from feedback table
+                cursor.execute("""
+                    SELECT 
+                        a.id,
+                        a.text,
+                        a.author_name,
+                        a.score,
+                        a.created_at,
+                        f.feedback_type as review_status,
+                        f.created_at as review_date
+                    FROM articles a
+                    LEFT JOIN feedback f ON a.id = f.article_id
+                    WHERE f.feedback_type IN ('approved', 'rejected', 'edited', 'skipped')
+                    ORDER BY f.created_at DESC
+                """)
+                
+                rows = cursor.fetchall()
+                articles = []
+                
+                for row in rows:
+                    articles.append({
+                        'id': row['id'],
+                        'text': row['text'],
+                        'author_name': row['author_name'],
+                        'score': row['score'],
+                        'created_at': row['created_at'],
+                        'review_status': row['review_status'],
+                        'review_date': row['review_date']
+                    })
+                
+                return articles
+                
+        except Exception as e:
+            logger.error(f"Error getting articles with review status: {e}")
+            return []
+    
+    def get_diverse_articles(self, limit: int = 10) -> List[Article]:
+        """Get diverse articles mixing high-score and recent articles.
+        
+        Args:
+            limit: Maximum number of articles to return
+            
+        Returns:
+            List of diverse articles
+        """
+        try:
+            with self.get_connection() as conn:
+                cursor = conn.cursor()
+                
+                # Get half high-score articles and half recent articles
+                half_limit = limit // 2
+                
+                # Get top articles by score
+                cursor.execute("""
+                    SELECT * FROM articles 
+                    ORDER BY score DESC 
+                    LIMIT ?
+                """, (half_limit,))
+                
+                high_score_rows = cursor.fetchall()
+                
+                # Get recent articles
+                cursor.execute("""
+                    SELECT * FROM articles 
+                    ORDER BY created_at DESC 
+                    LIMIT ?
+                """, (half_limit,))
+                
+                recent_rows = cursor.fetchall()
+                
+                # Combine and deduplicate
+                all_rows = high_score_rows + recent_rows
+                seen_ids = set()
+                unique_rows = []
+                
+                for row in all_rows:
+                    if row['id'] not in seen_ids:
+                        seen_ids.add(row['id'])
+                        unique_rows.append(row)
+                
+                # Sort by score and take top limit
+                unique_rows.sort(key=lambda x: x['score'], reverse=True)
+                unique_rows = unique_rows[:limit]
+                
+                articles = []
+                for row in unique_rows:
+                    article = Article(
+                        id=row['id'],
+                        text=row['text'],
+                        author_id=row['author_id'],
+                        author_username=row['author_username'],
+                        author_name=row['author_name'],
+                        author_followers=row['author_followers'],
+                        likes=row['likes'],
+                        retweets=row['retweets'],
+                        replies=row['replies'],
+                        url=row['url'],
+                        created_at=datetime.fromisoformat(row['created_at']),
+                        score=row['score'],
+                        topics=json.loads(row['topics']) if row['topics'] else None,
+                        categories=json.loads(row['categories']) if row['categories'] else None,
+                        summary=row['summary']
+                    )
+                    articles.append(article)
+                
+                return articles
+                
+        except Exception as e:
+            logger.error(f"Error getting diverse articles: {e}")
+            return []
+    
     def clear_all_data(self) -> bool:
         """Clear all data from the database.
         
