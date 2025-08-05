@@ -500,6 +500,57 @@ Last updated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
         except Exception as e:
             logger.error(f"Error sending analytics report: {e}")
     
+    def send_single_article_sync(self, article: Article) -> bool:
+        """Send a single article to Telegram with enhanced summary.
+        
+        Args:
+            article: Article to send
+            
+        Returns:
+            True if successful, False otherwise
+        """
+        try:
+            if not self.is_available():
+                logger.error("Telegram bot not available")
+                return False
+            
+            logger.info(f"Sending single article: {article.text[:50]}...")
+            
+            # Generate enhanced summary
+            summary = self._generate_enhanced_summary(article)
+            
+            # Create message with enhanced formatting
+            message = f"""🤖 **Robotics Radar - Latest Article**
+
+{summary}
+
+⭐ **Score:** {article.score:.1f}
+🔗 **Read Article:** {article.url}
+📅 **Published:** {article.created_at.strftime('%Y-%m-%d %H:%M')}"""
+            
+            # Send message
+            bot = Bot(token=self.bot_token)
+            
+            async def send_message():
+                for user_id in self.allowed_users:
+                    try:
+                        await bot.send_message(
+                            chat_id=user_id,
+                            text=message,
+                            parse_mode='Markdown',
+                            disable_web_page_preview=False
+                        )
+                        logger.info(f"Sent single article to user {user_id}")
+                    except Exception as e:
+                        logger.error(f"Error sending to user {user_id}: {e}")
+            
+            asyncio.run(send_message())
+            return True
+            
+        except Exception as e:
+            logger.error(f"Error sending single article: {e}")
+            return False
+    
     def send_top_articles_sync(self, articles: List[Article], max_articles: int = 10) -> bool:
         """Send top articles to Telegram with human-in-the-loop review.
         

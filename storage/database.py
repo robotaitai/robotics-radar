@@ -906,6 +906,201 @@ class DatabaseManager:
             logger.error(f"Error getting diverse articles: {e}")
             return []
     
+    def get_unpublished_articles(self, limit: int = 10) -> List[Article]:
+        """Get articles that haven't been published yet.
+        
+        Args:
+            limit: Maximum number of articles to return
+            
+        Returns:
+            List of unpublished articles
+        """
+        try:
+            with self.get_connection() as conn:
+                cursor = conn.cursor()
+                
+                cursor.execute("""
+                    SELECT * FROM articles 
+                    WHERE published_at IS NULL
+                    ORDER BY score DESC, created_at DESC
+                    LIMIT ?
+                """, (limit,))
+                
+                rows = cursor.fetchall()
+                articles = []
+                
+                for row in rows:
+                    article = Article(
+                        id=row['id'],
+                        text=row['text'],
+                        author_id=row['author_id'],
+                        author_username=row['author_username'],
+                        author_name=row['author_name'],
+                        author_followers=row['author_followers'],
+                        likes=row['likes'],
+                        retweets=row['retweets'],
+                        replies=row['replies'],
+                        url=row['url'],
+                        created_at=datetime.fromisoformat(row['created_at']),
+                        score=row['score'],
+                        topics=json.loads(row['topics']) if row['topics'] else None,
+                        categories=json.loads(row['categories']) if row['categories'] else None,
+                        summary=row['summary']
+                    )
+                    articles.append(article)
+                
+                return articles
+                
+        except Exception as e:
+            logger.error(f"Error getting unpublished articles: {e}")
+            return []
+    
+    def get_next_article_to_publish(self) -> Optional[Article]:
+        """Get the next best article to publish.
+        Prioritizes new articles, then unpublished articles by score.
+        
+        Returns:
+            Next article to publish or None if no articles available
+        """
+        try:
+            with self.get_connection() as conn:
+                cursor = conn.cursor()
+                
+                # First, try to get a new article (created in last 2 hours)
+                cursor.execute("""
+                    SELECT * FROM articles 
+                    WHERE published_at IS NULL 
+                    AND created_at >= datetime('now', '-2 hours')
+                    ORDER BY score DESC, created_at DESC
+                    LIMIT 1
+                """)
+                
+                row = cursor.fetchone()
+                
+                if row:
+                    article = Article(
+                        id=row['id'],
+                        text=row['text'],
+                        author_id=row['author_id'],
+                        author_username=row['author_username'],
+                        author_name=row['author_name'],
+                        author_followers=row['author_followers'],
+                        likes=row['likes'],
+                        retweets=row['retweets'],
+                        replies=row['replies'],
+                        url=row['url'],
+                        created_at=datetime.fromisoformat(row['created_at']),
+                        score=row['score'],
+                        topics=json.loads(row['topics']) if row['topics'] else None,
+                        categories=json.loads(row['categories']) if row['categories'] else None,
+                        summary=row['summary']
+                    )
+                    return article
+                
+                # If no new articles, get the best unpublished article
+                cursor.execute("""
+                    SELECT * FROM articles 
+                    WHERE published_at IS NULL
+                    ORDER BY score DESC, created_at DESC
+                    LIMIT 1
+                """)
+                
+                row = cursor.fetchone()
+                
+                if row:
+                    article = Article(
+                        id=row['id'],
+                        text=row['text'],
+                        author_id=row['author_id'],
+                        author_username=row['author_username'],
+                        author_name=row['author_name'],
+                        author_followers=row['author_followers'],
+                        likes=row['likes'],
+                        retweets=row['retweets'],
+                        replies=row['replies'],
+                        url=row['url'],
+                        created_at=datetime.fromisoformat(row['created_at']),
+                        score=row['score'],
+                        topics=json.loads(row['topics']) if row['topics'] else None,
+                        categories=json.loads(row['categories']) if row['categories'] else None,
+                        summary=row['summary']
+                    )
+                    return article
+                
+                return None
+                
+        except Exception as e:
+            logger.error(f"Error getting next article to publish: {e}")
+            return None
+    
+    def mark_article_published(self, article_id: str) -> bool:
+        """Mark an article as published with current timestamp.
+        
+        Args:
+            article_id: ID of the article to mark as published
+            
+        Returns:
+            True if successful, False otherwise
+        """
+        try:
+            with self.get_connection() as conn:
+                cursor = conn.cursor()
+                
+                cursor.execute("""
+                    UPDATE articles 
+                    SET published_at = CURRENT_TIMESTAMP
+                    WHERE id = ?
+                """, (article_id,))
+                
+                conn.commit()
+                return cursor.rowcount > 0
+                
+        except Exception as e:
+            logger.error(f"Error marking article as published: {e}")
+            return False
+    
+    def get_published_articles_count(self) -> int:
+        """Get count of published articles.
+        
+        Returns:
+            Number of published articles
+        """
+        try:
+            with self.get_connection() as conn:
+                cursor = conn.cursor()
+                
+                cursor.execute("""
+                    SELECT COUNT(*) FROM articles 
+                    WHERE published_at IS NOT NULL
+                """)
+                
+                return cursor.fetchone()[0]
+                
+        except Exception as e:
+            logger.error(f"Error getting published articles count: {e}")
+            return 0
+    
+    def get_unpublished_articles_count(self) -> int:
+        """Get count of unpublished articles.
+        
+        Returns:
+            Number of unpublished articles
+        """
+        try:
+            with self.get_connection() as conn:
+                cursor = conn.cursor()
+                
+                cursor.execute("""
+                    SELECT COUNT(*) FROM articles 
+                    WHERE published_at IS NULL
+                """)
+                
+                return cursor.fetchone()[0]
+                
+        except Exception as e:
+            logger.error(f"Error getting unpublished articles count: {e}")
+            return 0
+    
     def clear_all_data(self) -> bool:
         """Clear all data from the database.
         
